@@ -1,0 +1,25 @@
+.form {
+  .form_input_container {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.form_input {
+  margin-bottom: 2rem;
+  width: 100%;
+  border: 1px solid #cfd4db;
+  outline: none;
+  padding: 8px 11px;
+  border-radius: 5px;
+}
+
+.search_input {
+  width: 80%;
+}
+
+@media screen and (min-width: 768px) {
+  .search_input {
+    width: 50%;
+  }
+}

@@ -1,0 +1,38 @@
+.btn {
+  box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
+    0 0.1rem 0.3rem rgb(0 0 0 / 8%);
+  font-size: 1.7rem;
+  font-weight: 500;
+  line-height: 2.4rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 0.4rem;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+}
+
+.btn_primary {
+  background-color: #00b4cc;
+
+  &:hover {
+    background-color: darken(#00b4cc, 10%);
+  }
+}
+
+.btn_edit {
+  background-color: #ffb74d;
+
+  &:hover {
+    background-color: darken(#ffb74d, 10%);
+  }
+}
+
+.btn_delete {
+  background-color: #ff033e;
+
+  &:hover {
+    background-color: darken(#ff033e, 10%);
+  }
+}

@@ -1,0 +1,63 @@
+header {
+  background: #00b4cc;
+  color: #fff;
+  clip-path: polygon(100% 0, 100% 92%, 50% 100%, 0 92%, 0 0);
+  padding: 0 0 4rem 0;
+}
+
+.team_info {
+  .team_badge {
+    height: 10rem;
+    width: 10rem;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+  }
+  .team_name {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .team_ageGroup {
+    span {
+      background-color: #444;
+      color: #fff;
+      padding: 0.5rem 4rem;
+      text-align: center;
+      border-radius: 1.5rem;
+    }
+  }
+}
+
+.team_badge {
+  height: 10rem;
+  width: 10rem;
+  // object-fit: cover;
+  display: block;
+  margin: 0 auto;
+
+  img {
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .team_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    padding: 3.5rem 0;
+
+    .team_badge {
+      margin: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    clip-path: polygon(100% 0, 100% 75%, 50% 100%, 0 75%, 0 0);
+  }
+}

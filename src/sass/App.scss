@@ -1,0 +1,59 @@
+@use "./partials/_generics";
+@use "./partials/_buttons";
+@use "./partials/modal";
+@use "./partials/forms";
+@use "./partials/header";
+
+body {
+  background-color: #f1f1f1;
+  color: #444;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.ml {
+  display: inline-block;
+  margin-left: 1rem;
+}
+.button {
+  padding: 0 0 4rem 0;
+}
+
+.delete_confirm {
+  padding: 4rem;
+}
+
+.list_container {
+  background-color: #fff;
+  height: 35rem;
+  margin-bottom: 5rem;
+  border-radius: 1.4rem;
+  padding: 3rem;
+  box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
+    0 0.1rem 0.3rem rgb(0 0 0 / 8%);
+
+  h2 {
+    color: #444;
+  }
+
+  &:has(h2) {
+    height: 40rem;
+    margin-top: 4rem;
+  }
+
+  .fixture {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 6rem;
+  }
+
+  .team_fixture {
+    margin-bottom: 4rem;
+  }
+}
