@@ -8,6 +8,8 @@ export const users = [
     userName: "joe123",
     signUpDate: 12345678910,
     child: "1",
+    isLoggedIn: true,
+    teams: [588588858959],
   },
 ];
 

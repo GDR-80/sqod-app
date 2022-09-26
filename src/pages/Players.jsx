@@ -7,13 +7,10 @@ import CreateButton from "../components/Buttons/CreateButton";
 
 const Players = () => {
   const players = useSelector((state) => state.players);
-  if (!players) {
-    <p>No players</p>;
-  }
+
   const filteredData = useSelector((state) => state.filteredData);
 
   const results = filteredData && filteredData.length ? filteredData : players;
-  console.log(players);
 
   return (
     <>
@@ -32,7 +29,7 @@ const Players = () => {
         <div>
           <CreateButton />
           <button className="btn btn_primary ml">
-            <Link to="/">Back</Link>
+            <Link to="/home">Back</Link>
           </button>
         </div>
       </div>

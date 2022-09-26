@@ -6,14 +6,15 @@ import {
   DELETE_PLAYER,
   EDIT_PLAYER,
 } from "./types";
-import { searchFilter, generateRandomId } from "../utils";
+import { searchFilter, generateRandomId, resetFilteredData } from "../utils";
 
 export function reducer(state = getItem("store") || initialState, action) {
   switch (action.type) {
     case ADD_PLAYER: {
       const players = [...state.players];
-      console.log(players);
+      let filteredData = { ...state.filteredData };
 
+      resetFilteredData(filteredData);
       const newPlayer = {
         id: generateRandomId(64),
         name: action.payload.addPlayerName,
@@ -32,6 +33,9 @@ export function reducer(state = getItem("store") || initialState, action) {
     case EDIT_PLAYER: {
       const players = [...state.players];
       const player = players.find((player) => player.id === action.payload.id);
+      let filteredData = { ...state.filteredData };
+
+      resetFilteredData(filteredData);
 
       if (!player) return;
 
@@ -47,18 +51,19 @@ export function reducer(state = getItem("store") || initialState, action) {
     }
 
     case DELETE_PLAYER: {
-      console.log(action);
       const players = [...state.players];
+      let filteredData = { ...state.filteredData };
+
+      resetFilteredData(filteredData);
       const playerToDelete = players.findIndex(
         (item) => item.id === action.payload
       );
 
       players.splice(playerToDelete, 1);
 
-      const newState = { ...state, players };
+      const newState = { ...state, players, filteredData };
 
       storeItem("store", newState);
-      console.log(newState);
       return newState;
     }
 
@@ -67,7 +72,6 @@ export function reducer(state = getItem("store") || initialState, action) {
 
       return {
         ...state,
-        search_input: action.payload,
         filteredData,
       };
 

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const nextMatch = useSelector((state) => state.fixtures[0]);
-  console.log(nextMatch);
   const {
     teamBadge,
     awayTeam,

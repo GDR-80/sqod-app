@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { SET_PLAYER_DATA } from "./redux/types";
+import Landing from "./components/Landing";
 import Home from "./pages/Home";
 import Players from "./pages/Players";
 import FixtureList from "./components/FixtureList";
@@ -22,7 +23,8 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/" element={<Landing />}></Route>
+          <Route exact path="/home" element={<Home />}></Route>
           <Route exact path="/players" element={<Players />}></Route>
           <Route path="/player/:playerId" element={<PlayerDetail />}></Route>
           <Route exact path="/fixtures" element={<FixtureList />}></Route>

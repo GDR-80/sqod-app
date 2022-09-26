@@ -21,7 +21,7 @@ const FixtureDetail = () => {
         />
 
         <button className="btn btn_primary ml">
-          <Link to="/">Back</Link>
+          <Link to="/home">Back</Link>
         </button>
       </div>
     </>

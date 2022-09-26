@@ -7,8 +7,6 @@ const CreatePlayerForm = ({ setModalContent }) => {
   const [addPlayerAge, setAddPlayerAge] = useState("");
   const inputRef = useRef();
   const dispatch = useDispatch();
-  console.log(addPlayerName);
-
   useEffect(() => {
     inputRef.current.focus();
   }, []);
