@@ -2,9 +2,8 @@ import { useState } from "react";
 import Modal from "../Modal";
 import Backdrop from "../Backdrop";
 
-const DeleteButton = () => {
+const EditPlayerButton = () => {
   const [modalContent, setModalContent] = useState();
-
   return (
     <>
       {modalContent && (
@@ -17,15 +16,15 @@ const DeleteButton = () => {
         </>
       )}
       <button
-        className="btn btn_delete ml"
+        className="btn btn_edit"
         onClick={() => {
-          setModalContent(3);
+          setModalContent(2);
         }}
       >
-        Delete
+        Edit
       </button>
     </>
   );
 };
 
-export default DeleteButton;
+export default EditPlayerButton;

@@ -8,14 +8,14 @@ export const users = [
     userName: "joe123",
     signUpDate: 12345678910,
     child: "1",
-    isLoggedIn: true,
+    isLoggedIn: false,
     teams: [588588858959],
   },
 ];
 
 export const teams = [
   {
-    id: 588588858959,
+    id: "588588858959",
     name: "Ripon City Panthers",
     manager: users[0].name,
     ageGroup: "U13",

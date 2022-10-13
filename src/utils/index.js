@@ -20,9 +20,3 @@ export function searchFilter(arr, data) {
     item.name.toLowerCase().includes(data.toLowerCase())
   );
 }
-
-export const resetFilteredData = (filteredData) => {
-  if (filteredData) {
-    filteredData = undefined;
-  }
-};

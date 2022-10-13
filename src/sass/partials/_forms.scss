@@ -18,8 +18,35 @@
   width: 80%;
 }
 
+.create_user_form {
+  text-align: left;
+  padding: 4rem 0;
+  min-width: 95%;
+  margin: 6rem auto 0 auto;
+  color: #444;
+  width: 400px;
+  background-color: #fff;
+  border-radius: 1.4rem;
+
+  label {
+    display: block;
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+
+  button {
+    display: block;
+    margin: 3rem auto 0 auto;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .search_input {
     width: 50%;
+  }
+
+  .create_user_form {
+    min-width: 70%;
   }
 }

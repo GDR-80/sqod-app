@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
   padding: 4rem 0;
   text-align: center;
@@ -25,8 +25,16 @@ body {
   padding: 0 0 4rem 0;
 }
 
+.error {
+  color: #ff033e;
+}
+
 .delete_confirm {
   padding: 4rem;
+}
+
+.error-message {
+  font-size: 1.7rem;
 }
 
 .list_container {
@@ -56,5 +64,187 @@ body {
 
   .team_fixture {
     margin-bottom: 4rem;
+  }
+}
+
+.user_type_container {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  background-color: #fff;
+  height: 35rem;
+  margin: 3rem 0 5rem 0;
+  border-radius: 1.4rem;
+  padding: 4rem;
+  box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
+    0 0.1rem 0.3rem rgb(0 0 0 / 8%);
+
+  .user_type {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    padding: 3.5rem;
+    border: solid 1px #444;
+    border-radius: 1.4rem;
+
+    h2 {
+      text-transform: capitalize;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.8rem;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.wide {
+  width: 100%;
+}
+
+.form_group_holder {
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+  .form_group {
+    width: 50%;
+  }
+}
+
+select {
+  width: 100%;
+}
+
+.button_group {
+  display: flex;
+  margin: 0 auto;
+  width: 20%;
+  justify-content: center;
+}
+
+.tab_group {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+
+  .tab {
+    background-color: #fff;
+    // color: #fff;
+    padding: 1rem;
+    margin: 0 3rem 0 0;
+    min-width: 20rem;
+    // border-radius: 0.4rem;
+    border-radius: 3rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-size: 2rem;
+    box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
+      0 0.1rem 0.3rem rgb(0 0 0 / 8%);
+
+    // &:hover {
+    //   background-color: darken(#00b4cc, 10%);
+    // }
+  }
+  .active {
+    background-color: #00b4cc;
+    color: #fff;
+  }
+}
+
+.danger_message {
+  background-color: rgba(255, 3, 62, 0.5);
+  border: 1px solid rgba(255, 3, 62, 0.8);
+  color: #fff;
+  padding: 1rem 2rem;
+  font-size: 1.8rem;
+}
+
+.profile_container {
+  height: auto;
+  flex-grow: 1;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  gap: 15rem;
+  text-align: justify;
+  font-size: 1.7rem;
+
+  li {
+    padding: 0.6rem 0;
+  }
+
+  &_label {
+    font-weight: 600;
+  }
+
+  p {
+    display: inline-block;
+  }
+}
+
+.controls_btn {
+  align-self: flex-end;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  width: 100%;
+}
+
+.main_profile {
+  background-color: #fff;
+  text-align: left;
+  margin: 3rem 0 5rem 0;
+  border-radius: 1.4rem;
+  padding: 4rem;
+  box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
+    0 0.1rem 0.3rem rgb(0 0 0 / 8%);
+}
+
+.my_teams {
+  flex-grow: 1;
+}
+
+.list {
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 2rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 2rem;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .list_group {
+    li {
+      border-bottom: none;
+
+      &:last-child {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+
+  .border-bottom-0 {
+    border-bottom: none;
   }
 }

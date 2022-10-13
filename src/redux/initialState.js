@@ -5,4 +5,6 @@ export const initialState = {
   teams,
   players,
   fixtures,
+  screenMode: 0,
+  currentUser: {},
 };

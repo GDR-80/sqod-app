@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from "../Modal";
 import Backdrop from "../Backdrop";
 
-const CreateButton = () => {
+const CreateTeamButton = () => {
   const [modalContent, setModalContent] = useState();
 
   return (
@@ -19,13 +19,13 @@ const CreateButton = () => {
       <button
         className=" btn btn_primary"
         onClick={() => {
-          setModalContent(1);
+          setModalContent(4);
         }}
       >
-        Add Player
+        Create Team
       </button>
     </>
   );
 };
 
-export default CreateButton;
+export default CreateTeamButton;

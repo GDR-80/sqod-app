@@ -2,8 +2,9 @@ import { useState } from "react";
 import Modal from "../Modal";
 import Backdrop from "../Backdrop";
 
-const EditButton = () => {
+const DeleteTeamButton = () => {
   const [modalContent, setModalContent] = useState();
+
   return (
     <>
       {modalContent && (
@@ -16,15 +17,15 @@ const EditButton = () => {
         </>
       )}
       <button
-        className="btn btn_edit"
+        className="btn btn_delete ml"
         onClick={() => {
-          setModalContent(2);
+          setModalContent(5);
         }}
       >
-        Edit
+        Delete
       </button>
     </>
   );
 };
 
-export default EditButton;
+export default DeleteTeamButton;

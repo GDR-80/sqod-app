@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Player from "../components/Player";
 import Search from "../components/Search";
-import CreateButton from "../components/Buttons/CreateButton";
+import CreatePlayerButton from "../components/Buttons/CreatePlayerButton";
 
 const Players = () => {
   const players = useSelector((state) => state.players);
@@ -27,7 +27,7 @@ const Players = () => {
               />
             ))}
         <div>
-          <CreateButton />
+          <CreatePlayerButton />
           <button className="btn btn_primary ml">
             <Link to="/home">Back</Link>
           </button>

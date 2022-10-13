@@ -4,20 +4,20 @@ import PlaceholderBadge from "../assets/soccer.png";
 
 const Header = () => {
   const team = useSelector((state) => state.teams[0]);
-  const user = useSelector((state) => state.users[0]);
+  const user = useSelector((state) => state.currentUser);
   const location = useLocation();
   return (
     <>
-      {location.pathname !== "/" && (
+      {location.pathname !== "/" && location.pathname !== "/signup" && (
         <header>
           <button className="btn btn_edit" onClick={() => localStorage.clear()}>
             Clear localStorage
           </button>
           <div className="container">
             <h1>SQOD</h1>
-            {user.isLoggedIn && (
+            {user && (
               <div className="team_info">
-                <Link to="/">
+                <Link to="/home">
                   <div className="team_badge">
                     {!team.teamBadge ? (
                       <img src={PlaceholderBadge} alt="" />

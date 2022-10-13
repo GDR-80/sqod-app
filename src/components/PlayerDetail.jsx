@@ -1,7 +1,7 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import EditButton from "../components/Buttons/EditButton";
-import DeleteButton from "./Buttons/DeleteButton";
+import EditPlayerButton from "./Buttons/EditPlayerButton";
+import DeletePlayerButton from "./Buttons/DeletePlayerButton";
 
 const PlayerDetail = () => {
   const { playerId } = useParams();
@@ -17,8 +17,8 @@ const PlayerDetail = () => {
       <div className="list_container">
         <h3>Name: {player.name}</h3>
         <h3>Age: {player.age}</h3>
-        <EditButton />
-        <DeleteButton player={player.id} />
+        <EditPlayerButton />
+        <DeletePlayerButton player={player.id} />
       </div>
       <button className="btn btn_primary ml">
         <Link to="/players">Back</Link>
