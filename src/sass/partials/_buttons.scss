@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+// .button {
+//   padding: 0 0 4rem 0;
+// }
+
 .btn_primary {
   background-color: #00b4cc;
 
@@ -35,4 +39,19 @@
   &:hover {
     background-color: darken(#ff033e, 10%);
   }
+}
+
+.btn_success {
+  background-color: #66bb6a;
+  &:hover {
+    background-color: darken(#66bb6a, 10%);
+  }
+}
+
+.btn_info {
+  background-color: #90a4ae;
+  cursor: inherit;
+  // &:hover {
+  //   background-color: darken(#66bb6a, 10%);
+  // }
 }

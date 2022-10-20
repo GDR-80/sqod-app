@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SET_SCREEN, SET_USER_TYPE } from "../redux/types";
 import { Link } from "react-router-dom";
 
 const UserType = () => {
   const dispatch = useDispatch();
-  // const currentUser = useSelector((state) => state.currentUser);
   const manager = "manager";
   const parent = "parent";
   return (

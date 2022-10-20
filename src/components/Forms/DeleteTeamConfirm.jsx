@@ -23,7 +23,7 @@ const DeleteTeamConfirm = ({ setModalContent }) => {
         <button
           className="btn btn_primary"
           onClick={(e) => {
-            // setModalContent(undefined);
+            setModalContent(undefined);
           }}
         >
           Cancel

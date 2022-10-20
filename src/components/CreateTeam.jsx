@@ -1,11 +1,12 @@
 import CreateTeamForm from "./Forms/CreateTeamForm";
+import Container from "./UI/Container";
 
 const CreateTeam = () => {
   return (
     <>
-      <div className="container">
+      <Container>
         <CreateTeamForm />
-      </div>
+      </Container>
     </>
   );
 };

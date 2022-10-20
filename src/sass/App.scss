@@ -1,4 +1,6 @@
 @use "./partials/_generics";
+@use "./partials/_utilities";
+@use "./partials/components";
 @use "./partials/_buttons";
 @use "./partials/modal";
 @use "./partials/landing";
@@ -8,21 +10,6 @@
 body {
   background-color: #f1f1f1;
   color: #444;
-}
-
-.container {
-  max-width: 1260px;
-  margin: 0 auto;
-  padding: 4rem 0;
-  text-align: center;
-}
-
-.ml {
-  display: inline-block;
-  margin-left: 1rem;
-}
-.button {
-  padding: 0 0 4rem 0;
 }
 
 .error {
@@ -54,17 +41,29 @@ body {
     height: 40rem;
     margin-top: 4rem;
   }
+}
 
-  .fixture {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 6rem;
-  }
+.fixture_container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
-  .team_fixture {
-    margin-bottom: 4rem;
+.fixture {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 6rem;
+  padding: 1rem;
+
+  &_time {
+    width: 33%;
   }
+}
+
+.team_badge_holder,
+.team_fixture {
+  width: 33%;
 }
 
 .user_type_container {
@@ -156,14 +155,6 @@ select {
   }
 }
 
-.danger_message {
-  background-color: rgba(255, 3, 62, 0.5);
-  border: 1px solid rgba(255, 3, 62, 0.8);
-  color: #fff;
-  padding: 1rem 2rem;
-  font-size: 1.8rem;
-}
-
 .profile_container {
   height: auto;
   flex-grow: 1;
@@ -200,16 +191,6 @@ select {
   width: 100%;
 }
 
-.main_profile {
-  background-color: #fff;
-  text-align: left;
-  margin: 3rem 0 5rem 0;
-  border-radius: 1.4rem;
-  padding: 4rem;
-  box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
-    0 0.1rem 0.3rem rgb(0 0 0 / 8%);
-}
-
 .my_teams {
   flex-grow: 1;
 }
@@ -219,7 +200,7 @@ select {
   border-radius: 0.4rem;
   font-size: 2rem;
 
-  li {
+  .list_item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -243,8 +224,26 @@ select {
       }
     }
   }
+}
 
-  .border-bottom-0 {
+.border_bottom {
+  border-bottom: 1px solid #ccc;
+  &:last-child {
     border-bottom: none;
+  }
+}
+
+.p_3 {
+  padding: 3rem;
+}
+
+.radio_container {
+  display: flex;
+  p {
+    margin: 3rem 3rem 0 0;
+    display: flex;
+    label {
+      margin-right: 1rem;
+    }
   }
 }

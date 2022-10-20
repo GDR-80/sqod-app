@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import "./sass/App.scss";
 import SignUp from "./pages/SignUp";
 import CreateTeam from "./components/CreateTeam";
+import CreateFixture from "./components/CreateFixture";
 import EditTeam from "./components/EditTeam";
 import AddChild from "./components/AddChild";
 
@@ -28,6 +29,11 @@ const App = () => {
             exact
             path="/dashboard/manager/create-team"
             element={<CreateTeam />}
+          ></Route>
+          <Route
+            exact
+            path="/dashboard/manager/create-fixture/:teamId"
+            element={<CreateFixture />}
           ></Route>
           <Route
             exact

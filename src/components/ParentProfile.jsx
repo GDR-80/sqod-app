@@ -1,17 +1,21 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ParentProfile = () => {
   const currentUser = useSelector((state) => state.currentUser);
-  const team = useSelector((state) => state.teams);
+  const teams = useSelector((state) => state.teams);
   const { name, email, phone, userType, children } = currentUser;
-
-  const myTeam = children.map((child) => {
-    return team.find((item) => item.id === child.team); //Need to change when local storage is reset - don't cast to a number
-  });
+  let myTeams = [];
+  console.log(children);
+  if (children) {
+    myTeams = children.map((child) => {
+      return teams.find((team) => team.id == child.team); //Need to change to === when local storage is reset
+    });
+  }
 
   return (
     <>
-      <div className="main_profile">
+      <div className="background_card">
         <div className="row">
           <div className="profile_container">
             <h2>{currentUser.name} Profile</h2>
@@ -49,30 +53,49 @@ const ParentProfile = () => {
           <div className="my_teams">
             <h2>My Teams</h2>
             <ul className="list">
-              {children.map((child, index) => {
-                return (
-                  <div className="list_group" key={child}>
-                    <li>
-                      <p>
-                        <span className="profile_label">Child: </span>
-                        {child.name}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        <span className="profile_label">Team: </span>
-                        {myTeam[index].name}
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        <span className="profile_label">Age Group: </span>
-                        {myTeam[index].ageGroup}
-                      </p>
-                    </li>
-                  </div>
-                );
-              })}
+              {!children || children.length === 0 ? (
+                <>
+                  <h4>No Children have been added</h4>
+                  <Link to="/dashboard/parent/add-child">
+                    <button className="btn btn_primary">Add Children</button>
+                  </Link>
+                </>
+              ) : (
+                children.map((child, index) => {
+                  return (
+                    <div className="list_group" key={child + index}>
+                      <li>
+                        <p>
+                          <span className="profile_label">Child: </span>
+                          {child.name}
+                        </p>
+                        {!child.approved ? (
+                          <button className="btn btn_info">
+                            Waiting to be approved
+                          </button>
+                        ) : (
+                          <button className="btn btn_success">Approved</button>
+                        )}
+                      </li>
+                      <li>
+                        <p>
+                          <span className="profile_label">Team: </span>
+                          {myTeams[index].name}
+                        </p>
+                        <Link to={`/team/${myTeams[index].id}`}>
+                          <button className="btn btn_primary">View Team</button>
+                        </Link>
+                      </li>
+                      <li>
+                        <p>
+                          <span className="profile_label">Age Group: </span>
+                          {myTeams[index].ageGroup}
+                        </p>
+                      </li>
+                    </div>
+                  );
+                })
+              )}
             </ul>
           </div>
         </div>

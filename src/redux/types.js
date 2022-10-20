@@ -7,7 +7,10 @@ export const SET_SCREEN = "SET_SCREEN";
 export const CREATE_TEAM = "CREATE_TEAM";
 export const EDIT_TEAM = "EDIT_TEAM";
 export const DELETE_TEAM = "DELETE_TEAM";
+export const SET_APPROVED = "SET_APPROVED";
 export const ADD_CHILD = "ADD_CHILD";
+
+export const CREATE_FIXTURE = "CREATE_FIXTURE";
 
 export const ADD_PLAYER = "ADD_PLAYER";
 export const DELETE_PLAYER = "DELETE_PLAYER";

@@ -13,8 +13,10 @@ import {
   EDIT_TEAM,
   DELETE_TEAM,
   ADD_CHILD,
+  SET_APPROVED,
 } from "./types";
 import { searchFilter, generateRandomId } from "../utils";
+// import { players } from "../fakeApi";
 
 export function reducer(state = getItem("store") || initialState, action) {
   switch (action.type) {
@@ -28,7 +30,7 @@ export function reducer(state = getItem("store") || initialState, action) {
         email,
         phone,
         password,
-        teams: [],
+        // teams: [],
       };
 
       currentUser = newUser;
@@ -68,10 +70,44 @@ export function reducer(state = getItem("store") || initialState, action) {
 
       const { children } = action.payload;
       user.children = children;
-      user.children.forEach((child) => (child.approved = false));
+      user.children.forEach((child) => {
+        child.approved = false;
+        child.id = generateRandomId(64);
+      });
       currentUser = user;
 
       const newState = { ...state, users, currentUser };
+      storeItem("store", newState);
+
+      return newState;
+    }
+
+    case SET_APPROVED: {
+      const users = [...state.users];
+
+      // const teams = [...state.teams];
+      // const team = teams.find((team) => team.id == action.payload.team);
+
+      users.forEach((user) => {
+        if (user.children) {
+          user.children.forEach((child) => {
+            if (child.id === action.payload.id) {
+              // child.approved = true;
+              child.approved === false
+                ? (child.approved = true)
+                : (child.approved = false);
+            }
+          });
+        }
+      });
+
+      // if (team.players && !team.players.includes(action.payload.id)) {
+      //   team.players.push(action.payload.id);
+      // } else {
+      //   team.players = [];
+      //   team.players.push(action.payload.id);
+      // }
+      const newState = { ...state, users };
       storeItem("store", newState);
 
       return newState;

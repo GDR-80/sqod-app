@@ -7,7 +7,6 @@ import CreatePlayerButton from "../components/Buttons/CreatePlayerButton";
 
 const Players = () => {
   const players = useSelector((state) => state.players);
-
   const filteredData = useSelector((state) => state.filteredData);
 
   const results = filteredData && filteredData.length ? filteredData : players;

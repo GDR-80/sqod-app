@@ -10,8 +10,6 @@ const AddChildInputs = ({ index, errors, teams, userInput }) => {
   teamAgesList = [...new Set(teamAgesList)];
 
   let filteredTeams = [];
-  console.log(userInput, index);
-  /// BUG HERE - ASK RUSSELL
   if (userInput.length > 0 && userInput[index] && userInput[index].ageGroup) {
     filteredTeams = teams.filter(
       (team) => team.ageGroup === userInput[index].ageGroup
@@ -48,7 +46,9 @@ const AddChildInputs = ({ index, errors, teams, userInput }) => {
       <div className="form_group">
         <label htmlFor="ageGroup">Select a team to join</label>
         <select defaultValue="" onChange={() => {}} name={index} id="ageGroup">
-          <option disabled>SELECT AN AGE GROUP</option>
+          <option disabled value="">
+            SELECT AN AGE GROUP
+          </option>
           {teamAgesList.map((age, index) => {
             return (
               <option key={age + index} value={age}>
@@ -61,13 +61,7 @@ const AddChildInputs = ({ index, errors, teams, userInput }) => {
       {filteredTeams.length > 0 && (
         <div className="form_group">
           <label htmlFor="team">Select a team to join</label>
-          <select
-            defaultValue=""
-            onChange={() => {}}
-            name={index}
-            value=""
-            id="team"
-          >
+          <select defaultValue="" onChange={() => {}} name={index} id="team">
             <option disabled value="">
               SELECT A TEAM
             </option>

@@ -52,11 +52,13 @@ const Fixture = ({
             <p>{awayTeam}</p>
           </div>
         </div>
-        {location.pathname !== `/fixture/${id}` && (
-          <Link to={`/fixture/${id}`}>
-            <button className="btn btn_primary">View Fixture</button>
-          </Link>
-        )}
+        <div>
+          {location.pathname !== `/fixture/${id}` && (
+            <Link to={`/fixture/${id}`}>
+              <button className="btn btn_primary">View Fixture</button>
+            </Link>
+          )}
+        </div>
       </div>
     </>
   );
