@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ManagerProfile from "./ManagerProfile";
+import BackgroundCard from "../components/UI/BackgroundCard";
 
 const Manager = () => {
   const [isActiveTab, setActiveTab] = useState("Profile");
@@ -27,38 +28,26 @@ const Manager = () => {
       {isActiveTab === "Profile" ? (
         <ManagerProfile />
       ) : (
-        <div className="user_type_container">
-          <div className="user_type manager">
-            <h2>Create a Team</h2>
-            <p>
-              Create a Manager account and create a team, add players and
-              parents, create fixtures and ask for availabilty for matches.
-            </p>
-            <Link to="/dashboard/manager/create-team">
-              <button className="btn btn_primary">Create a Team</button>
-            </Link>
+        <BackgroundCard>
+          {/* As more features get added to the app this is where we will link to different parts*/}
+          <div
+            // TODO remove inline styles
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "4rem",
+              padding: "3rem 1rem",
+            }}
+          >
+            <div className="user_type manager">
+              <h2>Create a Team</h2>
+              <p>Create a team, approve players and create fixtures.</p>
+              <Link to="/dashboard/manager/create-team">
+                <button className="btn btn_primary">Create a Team</button>
+              </Link>
+            </div>
           </div>
-          <div className="user_type parent">
-            <h2>View Fixtures</h2>
-            <p>
-              Create a Parent account and join a team, view upcoming fixtures
-              and set availabilty for matches.
-            </p>
-            <Link to="/fixtures">
-              <button className="btn btn_primary">Fixtures</button>
-            </Link>
-          </div>
-          <div className="user_type parent">
-            <h2>View Squad</h2>
-            <p>
-              Create a Parent account and join a team, view upcoming fixtures
-              and set availabilty for matches.
-            </p>
-            <Link to="/players">
-              <button className="btn btn_primary">Squad</button>
-            </Link>
-          </div>
-        </div>
+        </BackgroundCard>
       )}
     </>
   );

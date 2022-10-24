@@ -1,14 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { validate } from "../../validation";
-import { CREATE_FIXTURE, SET_SCREEN } from "../../redux/types";
+import { CREATE_FIXTURE } from "../../redux/types";
 
 const CreateFixtureForm = () => {
   const teams = useSelector((state) => state.teams);
   const { teamId } = useParams();
   const [userInput, setUserInput] = useState({});
   const [errors, setErrors] = useState();
+  const [redirect, setRedirect] = useState(false);
   const inputRef = useRef();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,27 +24,29 @@ const CreateFixtureForm = () => {
       oppositionList.push(team);
   });
 
-  console.log(oppositionList);
-
   const onUserInput = (e) => {
     const _userInput = { ...userInput, [e.target.name]: e.target.value };
-    console.log(_userInput);
     setUserInput(_userInput);
-    // const result = validate(2, _userInput);
-
-    // setErrors(result);
+    const result = validate(4, _userInput);
+    setErrors(result);
   };
 
   const onSubmit = () => {
-    // if (Object.keys(errors).length === 0) {
-    dispatch({
-      type: CREATE_FIXTURE,
-      payload: { userInput, teamId },
-    });
+    if (
+      Object.keys(userInput).length !== 0 &&
+      Object.keys(errors).length === 0
+    ) {
+      dispatch({
+        type: CREATE_FIXTURE,
+        payload: { fixture: userInput, teamId },
+      });
 
-    setUserInput({});
-    // }
+      setRedirect(true);
+    }
   };
+  if (redirect === true) {
+    return <Navigate replace to={`/team/${teamId}`} />;
+  }
 
   return (
     <>
@@ -58,7 +61,7 @@ const CreateFixtureForm = () => {
             className="form_input"
             id="date"
           />
-          {/* <p className="error">{errors && errors.date}</p> */}
+          <p className="error">{errors && errors.date}</p>
 
           <label htmlFor="meetTime">Meet Time</label>
           <input
@@ -70,7 +73,7 @@ const CreateFixtureForm = () => {
             max="14:00"
             required
           />
-          {/* <p className="error">{errors && errors.meetTime}</p> */}
+          <p className="error">{errors && errors.meetTime}</p>
 
           <label htmlFor="kickOff">Kick Off Time</label>
           <input
@@ -81,15 +84,15 @@ const CreateFixtureForm = () => {
             min="10:00"
             max="15:00"
           />
-          {/* <p className="error">{errors && errors.kickOff}</p> */}
+          <p className="error">{errors && errors.kickOff}</p>
 
           <div className="form_group">
-            <label htmlFor="ageGroup">Select a team to play</label>
+            <label htmlFor="opposition">Select a team to play</label>
             <select
               defaultValue=""
               onChange={() => {}}
               name="opposition"
-              id="ageGroup"
+              id="opposition"
             >
               <option disabled value="">
                 SELECT A TEAM
@@ -102,6 +105,7 @@ const CreateFixtureForm = () => {
                 );
               })}
             </select>
+            <p className="error">{errors && errors.opposition}</p>
           </div>
 
           <div className="radio_container">
@@ -114,7 +118,7 @@ const CreateFixtureForm = () => {
               <input type="radio" value="away" name="venue" id="away" />
             </p>
           </div>
-          {/* <p className="error">{errors && errors.opposition}</p> */}
+          <p className="error">{errors && errors.venue}</p>
         </div>
 
         <button className="btn btn_primary" onClick={onSubmit}>

@@ -6,10 +6,9 @@ const ParentProfile = () => {
   const teams = useSelector((state) => state.teams);
   const { name, email, phone, userType, children } = currentUser;
   let myTeams = [];
-  console.log(children);
   if (children) {
     myTeams = children.map((child) => {
-      return teams.find((team) => team.id == child.team); //Need to change to === when local storage is reset
+      return teams.find((team) => team.id === child.team);
     });
   }
 
@@ -20,25 +19,25 @@ const ParentProfile = () => {
           <div className="profile_container">
             <h2>{currentUser.name} Profile</h2>
             <ul className="list">
-              <li>
+              <li className="list_item">
                 <p>
                   <span className="profile_label">Name:</span> {name}
                 </p>
               </li>
-              <li>
+              <li className="list_item">
                 <p>
                   <span className="profile_label">Email: </span>
                   {email}
                 </p>
               </li>
 
-              <li>
+              <li className="list_item">
                 <p>
                   <span className="profile_label">Phone Number: </span>
                   {phone}
                 </p>
               </li>
-              <li>
+              <li className="list_item">
                 <p>
                   <span className="profile_label">User Account: </span>
                   {userType}
@@ -64,7 +63,7 @@ const ParentProfile = () => {
                 children.map((child, index) => {
                   return (
                     <div className="list_group" key={child + index}>
-                      <li>
+                      <li className="list_item">
                         <p>
                           <span className="profile_label">Child: </span>
                           {child.name}
@@ -77,7 +76,7 @@ const ParentProfile = () => {
                           <button className="btn btn_success">Approved</button>
                         )}
                       </li>
-                      <li>
+                      <li className="list_item">
                         <p>
                           <span className="profile_label">Team: </span>
                           {myTeams[index].name}
@@ -86,7 +85,7 @@ const ParentProfile = () => {
                           <button className="btn btn_primary">View Team</button>
                         </Link>
                       </li>
-                      <li>
+                      <li className="list_item">
                         <p>
                           <span className="profile_label">Age Group: </span>
                           {myTeams[index].ageGroup}

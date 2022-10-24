@@ -2,11 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { validate } from "../../validation";
 import { CREATE_TEAM } from "../../redux/types";
-import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const CreateTeamForm = () => {
   const [userInput, setUserInput] = useState({});
   const [errors, setErrors] = useState();
+  const [redirect, setRedirect] = useState(false);
+
   const inputRef = useRef();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,15 +23,21 @@ const CreateTeamForm = () => {
   };
 
   const onSubmit = () => {
-    if (Object.keys(errors).length === 0) {
+    if (
+      Object.keys(userInput).length !== 0 &&
+      Object.keys(errors).length === 0
+    ) {
       dispatch({
         type: CREATE_TEAM,
         payload: userInput,
       });
-
-      setUserInput({});
+      setRedirect(true);
     }
   };
+
+  if (redirect === true) {
+    return <Navigate replace to={"/dashboard"} />;
+  }
 
   return (
     <>
@@ -87,21 +95,20 @@ const CreateTeamForm = () => {
           />
           <p className="error">{errors && errors.city}</p>
 
-          <label htmlFor="postcode">Postcode</label>
+          <label htmlFor="postCode">Postcode</label>
           <input
             type="text"
-            name="postcode"
+            name="postCode"
             className="form_input"
-            placeholder="postcode"
-            id="postcode"
+            placeholder="postCode"
+            id="postCode"
           />
-          <p className="error">{errors && errors.postcode}</p>
+          <p className="error">{errors && errors.postCode}</p>
         </div>
-        <Link to="/dashboard">
-          <button className="btn btn_primary" onClick={onSubmit}>
-            Create Team
-          </button>
-        </Link>
+
+        <button className="btn btn_primary" onClick={onSubmit}>
+          Create Team
+        </button>
       </div>
     </>
   );

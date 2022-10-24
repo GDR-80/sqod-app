@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ParentProfile from "./ParentProfile";
+import BackgroundCard from "../components/UI/BackgroundCard";
 
 const Parent = () => {
   const [isActiveTab, setActiveTab] = useState("Profile");
@@ -27,32 +28,32 @@ const Parent = () => {
       {isActiveTab === "Profile" ? (
         <ParentProfile />
       ) : (
-        <div className="user_type_container">
-          <div className="user_type manager">
-            <h2>Add Child or children</h2>
-            <p>Add children and search for a team. </p>
-            <Link to="/dashboard/parent/add-child">
-              <button className="btn btn_primary">Add Children</button>
-            </Link>
+        <BackgroundCard>
+          {/* As more features get added to the app this is where we will link to different parts*/}
+          <div
+            // TODO remove inline styles
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "4rem",
+              padding: "3rem 1rem",
+            }}
+          >
+            <div className="user_type manager">
+              <h2>Add a child or children</h2>
+              <p>Add a child or children to a team</p>
+              <Link to="/dashboard/parent/add-child">
+                <button className="btn btn_primary">Add Children</button>
+              </Link>
+            </div>
           </div>
-          <div className="user_type parent">
-            <h2>View Fixtures</h2>
-            <p>View Fixture details</p>
-            <Link to="/fixtures">
-              <button className="btn btn_primary">Fixtures</button>
-            </Link>
-          </div>
-          <div className="user_type parent">
-            <h2>View Squad</h2>
-            <p>View squad</p>
-            <Link to="/players">
-              <button className="btn btn_primary">Squad</button>
-            </Link>
-          </div>
-        </div>
+        </BackgroundCard>
       )}
     </>
   );
 };
 
 export default Parent;
+//  <Link to="/dashboard/parent/add-child">
+//    <button className="btn btn_primary">Add Children</button>
+//  </Link>;

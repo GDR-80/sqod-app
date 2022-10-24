@@ -57,6 +57,7 @@ const AddChildInputs = ({ index, errors, teams, userInput }) => {
             );
           })}
         </select>
+        <p className="error">{errors && errors.ageGroup}</p>
       </div>
       {filteredTeams.length > 0 && (
         <div className="form_group">
@@ -73,6 +74,7 @@ const AddChildInputs = ({ index, errors, teams, userInput }) => {
               );
             })}
           </select>
+          <p className="error">{errors && errors.team}</p>
         </div>
       )}
     </div>

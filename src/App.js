@@ -15,6 +15,7 @@ import CreateTeam from "./components/CreateTeam";
 import CreateFixture from "./components/CreateFixture";
 import EditTeam from "./components/EditTeam";
 import AddChild from "./components/AddChild";
+import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
           <Route exact path="/fixtures" element={<FixtureList />}></Route>
           <Route path="/fixture/:fixtureId" element={<FixtureDetail />}></Route>
           <Route path="/team/:teamId" element={<TeamDetail />}></Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </>

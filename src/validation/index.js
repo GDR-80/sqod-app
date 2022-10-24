@@ -1,4 +1,10 @@
-import { createUser, createTeam, addPlayer } from "./joiSchemas";
+import {
+  createUser,
+  createTeam,
+  addPlayer,
+  createFixture,
+  addChildren,
+} from "./joiSchemas";
 import { jValidate } from "./joi";
 
 export const validate = (type, payload) => {
@@ -12,6 +18,14 @@ export const validate = (type, payload) => {
     case 3:
       //validate new team
       return jValidate(createTeam, payload);
+
+    case 4:
+      //validate fixture
+      return jValidate(createFixture, payload);
+
+    case 5:
+      //validate fixture
+      return jValidate(addChildren, payload);
 
     default:
       console.log("Invalid type sent in!");

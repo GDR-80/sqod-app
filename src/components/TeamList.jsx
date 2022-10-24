@@ -13,30 +13,28 @@ const TeamList = ({
         <ul className="list">
           <>
             {!childrenOnTeam || childrenOnTeam.length === 0 ? (
-              <li>No Children on the team yet</li>
+              <li className="p_3">No Children on the team yet</li>
             ) : (
               childrenOnTeam.map((child) => {
                 return (
-                  <>
-                    <li className="list_item" key={child.id}>
-                      <p>{child.name}</p>
-                      {currentUser.userType === "manager" && (
-                        <button
-                          // disabled={child.approved === true ? true : false}
-                          onClick={() => {
-                            onApprove(child.id, team.id);
-                          }}
-                          className={
-                            child.approved === false
-                              ? "btn btn_edit"
-                              : "btn btn_success"
-                          }
-                        >
-                          {child.approved === false ? "Approve" : "Approved"}
-                        </button>
-                      )}
-                    </li>
-                  </>
+                  <li className="list_item" key={child.id}>
+                    <p>{child.name}</p>
+                    {currentUser.userType === "manager" && (
+                      <button
+                        // disabled={child.approved === true ? true : false}
+                        onClick={() => {
+                          onApprove(child.id, team.id);
+                        }}
+                        className={
+                          child.approved === false
+                            ? "btn btn_edit"
+                            : "btn btn_success"
+                        }
+                      >
+                        {child.approved === false ? "Approve" : "Approved"}
+                      </button>
+                    )}
+                  </li>
                 );
               })
             )}

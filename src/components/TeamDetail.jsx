@@ -27,20 +27,11 @@ const TeamDetail = () => {
         if (child.team === teamId) {
           allChildren.push(child);
         }
-        // if (currentUser.teams.includes(child.team)) {
-        //   allChildren.push(child);
-        // }
       });
     }
   });
 
-  // && child.approved === false - try this on the below
-
   const childrenOnTeam = allChildren.filter((child) => child.team === team.id);
-
-  // const notApproved = allChildren.filter(
-  //   (child) => child.team === team.id && child.approved === false
-  // )
 
   const onApprove = (id, team) => {
     dispatch({ type: SET_APPROVED, payload: { id, team } });

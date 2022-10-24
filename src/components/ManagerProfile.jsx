@@ -8,7 +8,7 @@ const ManagerProfile = () => {
   const fixtures = useSelector((state) => state.fixtures);
   const { teams, name, email, phone, userType } = currentUser;
   const myTeams = allTeams.filter((team) => {
-    if (!teams.length) return;
+    if (!teams || teams.length === 0) return;
     return teams.includes(team.id);
   });
 

@@ -8,19 +8,15 @@ const EditTeamForm = () => {
   const { teamId } = useParams();
   const teams = useSelector((state) => state.teams);
   const team = teams.find((item) => item.id === teamId);
-  const [teamName, setTeamName] = useState(team.name);
-  const [teamAgeGroup, setTeamAgeGroup] = useState(team.ageGroup);
-  const [teamAddresslineOne, setTeamAddresslineOne] = useState(
-    team.venue.address.line1
-  );
-  const [teamAddresslineTwo, setTeamAddresslineTwo] = useState(
-    team.venue.address.line2
-  );
-  const [teamAddressCity, setTeamAddressCity] = useState(
-    team.venue.address.city
-  );
-  const [teamPostcode, setTeamPostcode] = useState(team.venue.address.postcode);
-
+  const { city, postCode, line1, line2 } = team.venue.address;
+  const [userInput, setUserInput] = useState({
+    city,
+    postCode,
+    line1,
+    line2,
+    name: team.name,
+    ageGroup: team.ageGroup,
+  });
   const [errors, setErrors] = useState();
   const inputRef = useRef();
   const dispatch = useDispatch();
@@ -30,41 +26,42 @@ const EditTeamForm = () => {
 
   const { name, ageGroup } = team;
 
+  const onUserInput = (e) => {
+    const _userInput = { ...userInput, [e.target.name]: e.target.value };
+    setUserInput(_userInput);
+    const result = validate(3, _userInput);
+    setErrors(result);
+  };
+
   const onSubmit = () => {
-    // if (Object.keys(errors).length === 0) {
-    dispatch({
-      type: EDIT_TEAM,
-      payload: {
-        name: teamName,
-        ageGroup: teamAgeGroup,
-        venue: {
-          address: {
-            line1: teamAddresslineOne,
-            line2: teamAddresslineTwo,
-            city: teamAddressCity,
-            postcode: teamPostcode,
+    if (Object.keys(errors).length === 0) {
+      const { name, ageGroup, line1, line2, city, postCode } = userInput;
+      dispatch({
+        type: EDIT_TEAM,
+        payload: {
+          name,
+          ageGroup,
+          venue: {
+            address: {
+              line1,
+              line2,
+              city,
+              postCode,
+            },
           },
+          id: teamId,
         },
-        id: teamId,
-      },
-    });
-    setTeamName("");
-    setTeamAgeGroup("");
-    setTeamAddresslineOne("");
-    setTeamAddresslineTwo("");
-    setTeamAddressCity("");
-    setTeamPostcode("");
-    // }
+      });
+    }
   };
 
   return (
     <>
       <h2>Edit Team</h2>
       <div className="form create_user_form">
-        <div className="form_input_container">
+        <div className="form_input_container" onInput={onUserInput}>
           <label htmlFor="name">Team Name</label>
           <input
-            onInput={(e) => setTeamName(e.target.value)}
             ref={inputRef}
             type="text"
             name="name"
@@ -77,7 +74,6 @@ const EditTeamForm = () => {
 
           <label htmlFor="ageGroup">Age Group</label>
           <input
-            onInput={(e) => setTeamAgeGroup(e.target.value)}
             className="form_input"
             type="text"
             placeholder="eg. U10"
@@ -89,7 +85,6 @@ const EditTeamForm = () => {
           <p>Home Ground Address</p>
           <label htmlFor="line1">Line One</label>
           <input
-            onInput={(e) => setTeamAddresslineOne(e.target.value)}
             type="text"
             name="line1"
             className="form_input"
@@ -101,7 +96,6 @@ const EditTeamForm = () => {
 
           <label htmlFor="line2">Line Two</label>
           <input
-            onInput={(e) => setTeamAddresslineTwo(e.target.value)}
             type="text"
             name="line2"
             className="form_input"
@@ -113,7 +107,6 @@ const EditTeamForm = () => {
 
           <label htmlFor="city">City</label>
           <input
-            onInput={(e) => setTeamAddressCity(e.target.value)}
             type="text"
             name="city"
             className="form_input"
@@ -123,17 +116,16 @@ const EditTeamForm = () => {
           />
           <p className="error">{errors && errors.city}</p>
 
-          <label htmlFor="postcode">Postcode</label>
+          <label htmlFor="postCode">Postcode</label>
           <input
-            onInput={(e) => setTeamPostcode(e.target.value)}
             type="text"
-            name="postcode"
+            name="postCode"
             className="form_input"
-            placeholder="postcode"
-            id="postcode"
-            defaultValue={team.venue.address.postcode}
+            placeholder="postCode"
+            id="postCode"
+            defaultValue={team.venue.address.postCode}
           />
-          <p className="error">{errors && errors.postcode}</p>
+          <p className="error">{errors && errors.postCode}</p>
         </div>
         <Link to={`/team/${teamId}`}>
           <button className="btn btn_primary" onClick={onSubmit}>

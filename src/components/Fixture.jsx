@@ -10,6 +10,7 @@ const Fixture = ({
   id,
 }) => {
   let location = useLocation();
+  console.log(new Date(date) * 1000);
   return (
     <>
       <div className="list_container">

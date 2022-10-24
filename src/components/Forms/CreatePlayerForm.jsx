@@ -21,7 +21,10 @@ const CreatePlayerForm = ({ setModalContent }) => {
   };
 
   const onSubmit = () => {
-    if (Object.keys(errors).length === 0) {
+    if (
+      Object.keys(userInput).length !== 0 &&
+      Object.keys(errors).length === 0
+    ) {
       setModalContent(undefined);
       dispatch({
         type: ADD_PLAYER,

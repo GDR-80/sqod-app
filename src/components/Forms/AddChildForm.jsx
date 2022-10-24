@@ -1,16 +1,17 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { validate } from "../../validation";
 import { useSelector } from "react-redux";
 import { ADD_CHILD } from "../../redux/types";
 import AddChildInputs from "../AddChildInputs";
-import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const AddChildForm = () => {
   const teams = useSelector((state) => state.teams);
   const [userInput, setUserInput] = useState([]);
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState([]);
   const [noOfChildren, setNoOfChildren] = useState(1);
+  const [redirect, setRedirect] = useState(false);
 
   const dispatch = useDispatch();
   const getChild = (name) => {
@@ -44,15 +45,26 @@ const AddChildForm = () => {
 
   const onSubmit = () => {
     // if (Object.keys(errors).length === 0) {
-
-    dispatch({
-      type: ADD_CHILD,
-      payload: { children: userInput },
+    const errors = [];
+    userInput.forEach((item) => {
+      const error = validate(5, item);
+      if (Object.keys(error).length > 0) errors.push(error);
     });
 
-    setUserInput({});
+    setErrors(errors);
+    console.log(errors);
+    if (errors.length === 0) {
+      dispatch({
+        type: ADD_CHILD,
+        payload: { children: userInput },
+      });
+      setRedirect(true);
+    }
     // }
   };
+  if (redirect === true) {
+    return <Navigate replace to={"/dashboard"} />;
+  }
   return (
     <>
       <h2>Add a Child</h2>
@@ -66,7 +78,7 @@ const AddChildForm = () => {
                   <AddChildInputs
                     key={index}
                     index={index}
-                    errors={errors}
+                    errors={errors[index]}
                     teams={teams}
                     userInput={userInput}
                   />
@@ -87,11 +99,10 @@ const AddChildForm = () => {
           <button className="btn btn_primary" onClick={onAddChildrenInput}>
             Add Child
           </button>
-          <Link to="/dashboard">
-            <button className="btn btn_primary" onClick={onSubmit}>
-              Submit
-            </button>
-          </Link>
+
+          <button className="btn btn_primary" onClick={onSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </>

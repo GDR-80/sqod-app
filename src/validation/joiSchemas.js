@@ -20,10 +20,20 @@ export const createTeam = {
   line1: Joi.string().required(),
   line2: Joi.string(),
   city: Joi.string().required(),
-  postcode: Joi.string().required(),
+  postCode: Joi.string().required(),
 };
 
 export const addChildren = {
   name: Joi.string().required().min(2),
   age: Joi.string().required().min(1),
+  team: Joi.string().required(),
+  ageGroup: Joi.string().required(),
+};
+
+export const createFixture = {
+  date: Joi.date().required(),
+  meetTime: Joi.required(),
+  kickOff: Joi.required(),
+  opposition: Joi.required(),
+  venue: Joi.required(),
 };

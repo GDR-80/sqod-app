@@ -21,7 +21,10 @@ const CreateUserForm = () => {
   };
 
   const onSubmit = () => {
-    if (Object.keys(errors).length === 0) {
+    if (
+      Object.keys(userInput).length !== 0 &&
+      Object.keys(errors).length === 0
+    ) {
       dispatch({
         type: CREATE_USER,
         payload: userInput,

@@ -14,10 +14,12 @@ const Header = () => {
             Clear localStorage
           </button>
           <div className="container">
-            <h1>SQOD</h1>
+            <h1>
+              Welcome to <span className="welcome_msg">SQOD,</span> {user.name}
+            </h1>
             {user && (
               <div className="team_info">
-                <Link to="/home">
+                {/* <Link to="/home">
                   <div className="team_badge">
                     {!team.teamBadge ? (
                       <img src={PlaceholderBadge} alt="" />
@@ -31,7 +33,7 @@ const Header = () => {
                   <p className="team_ageGroup">
                     <span>{team.ageGroup}</span>
                   </p>
-                </div>
+                    </div> */}
               </div>
             )}
           </div>

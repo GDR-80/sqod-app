@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import PlaceholderBadge from "../assets/soccer.png";
 
@@ -5,14 +6,19 @@ const FixtureTeamPage = ({
   homeTeam,
   awayTeam,
   date,
+  meetTime,
+  kickOff,
   teamBadge,
   awayTeamBadge,
   id,
 }) => {
+  const teams = useSelector((state) => state.teams);
+  homeTeam = teams.find((team) => team.id === homeTeam);
+  awayTeam = teams.find((team) => team.id === awayTeam);
   let location = useLocation();
   return (
     <>
-      <li className="border_bottom p_3 bg_grey">
+      <li className="border_bottom p_3">
         <div className="fixture_container">
           <div className="fixture">
             <div className="team_badge_holder">
@@ -23,7 +29,7 @@ const FixtureTeamPage = ({
                   <img src={teamBadge} alt="" />
                 )}
               </div>
-              <p>{homeTeam}</p>
+              <p>{homeTeam.name}</p>
             </div>
             <div className="fixture_time">
               <p>
@@ -35,11 +41,13 @@ const FixtureTeamPage = ({
                   })
                   .replace(/,/g, "")}
               </p>
-              <p className="time">
-                {new Date(date * 1000).toLocaleTimeString([], {
+              <p className="kickOff_time">
+                {/* {new Date(meetTime * 1000).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
-                })}
+                })} */}
+
+                {kickOff}
               </p>
             </div>
             <div className="team_fixture">
@@ -50,7 +58,7 @@ const FixtureTeamPage = ({
                   <img src={awayTeamBadge} alt="" />
                 )}
               </div>
-              <p>{awayTeam}</p>
+              <p>{awayTeam.name}</p>
             </div>
           </div>
         </div>
