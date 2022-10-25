@@ -2,9 +2,9 @@
 
 This is my final piece of homework from The Jump's React module on their full stack developer bootcamp course.
 
-SQOD is a proof of concept project which enables me to show what I've learnt while studying the React module.
+SQOD is a proof of concept project which enables me to show what I've learnt whilst studying the React module.
 
-## What was used to build SQOD
+## Used in this project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app),
 
