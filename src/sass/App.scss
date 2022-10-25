@@ -1,3 +1,4 @@
+@use "./partials/_variables" as *;
 @use "./partials/_generics";
 @use "./partials/_utilities";
 @use "./partials/components";
@@ -6,14 +7,15 @@
 @use "./partials/landing";
 @use "./partials/forms";
 @use "./partials/header";
+@use "./partials/footer";
 
 body {
-  background-color: #f1f1f1;
-  color: #444;
+  background-color: $main-bg;
+  color: $dark-grey;
 }
 
 .error {
-  color: #ff033e;
+  color: $red-color;
 }
 
 .delete_confirm {
@@ -25,14 +27,12 @@ body {
 }
 
 .list_container {
-  background-color: #fff;
+  background-color: $white;
   height: 35rem;
   margin-bottom: 5rem;
   border-radius: 1.4rem;
   padding: 3rem;
-  box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
-    0 0.1rem 0.3rem rgb(0 0 0 / 8%);
-
+  box-shadow: $box-shadow;
   h2 {
     color: #444;
   }
@@ -43,70 +43,20 @@ body {
   }
 }
 
-.fixture_container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 .fixture {
   display: flex;
-  justify-content: center;
-  align-items: baseline;
-  gap: 6rem;
-  padding: 1rem;
+  flex-direction: column;
+  align-items: center;
+}
 
-  &_time {
-    width: 33%;
-  }
+ul:has(.fixture) {
+  font-size: 2rem;
 }
 
 .fixture_info {
   font-size: 1.8rem;
   font-weight: 500;
 }
-
-.team_badge_holder,
-.team_fixture {
-  width: 33%;
-}
-
-// .user_type_container {
-//   display: flex;
-//   justify-content: center;
-//   gap: 4rem;
-//   background-color: #fff;
-//   height: 35rem;
-//   margin: 3rem 0 5rem 0;
-//   border-radius: 1.4rem;
-//   padding: 4rem;
-//   box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
-//     0 0.1rem 0.3rem rgb(0 0 0 / 8%);
-
-.user_type {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  width: 50%;
-  padding: 3.5rem;
-  border: solid 1px #444;
-  border-radius: 0.4rem;
-
-  h2 {
-    text-transform: capitalize;
-    margin: 0;
-  }
-
-  p {
-    font-size: 1.8rem;
-  }
-
-  button {
-    width: 100%;
-  }
-}
-// }
 
 .wide {
   width: 100%;
@@ -132,35 +82,6 @@ select {
   justify-content: center;
 }
 
-.tab_group {
-  display: flex;
-  justify-content: center;
-  padding: 3rem;
-
-  .tab {
-    background-color: #fff;
-    // color: #fff;
-    padding: 1rem;
-    margin: 0 3rem 0 0;
-    min-width: 20rem;
-    // border-radius: 0.4rem;
-    border-radius: 3rem;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-size: 2rem;
-    box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
-      0 0.1rem 0.3rem rgb(0 0 0 / 8%);
-
-    // &:hover {
-    //   background-color: darken(#00b4cc, 10%);
-    // }
-  }
-  .active {
-    background-color: #00b4cc;
-    color: #fff;
-  }
-}
-
 .profile_container {
   height: auto;
   flex-grow: 1;
@@ -168,6 +89,7 @@ select {
 
 .profile {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 15rem;
   text-align: justify;
@@ -192,6 +114,7 @@ select {
 
 .row {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 5rem;
   width: 100%;
@@ -202,15 +125,18 @@ select {
 }
 
 .list {
-  border: 1px solid #ccc;
+  border: 1px solid $light-grey;
   border-radius: 0.4rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
 
   .list_item {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    gap: 1rem;
+    border-bottom: 1px solid $light-grey;
     padding: 1rem 2rem;
     &:last-child {
       border-bottom: none;
@@ -222,18 +148,18 @@ select {
   }
 
   .list_group {
+    border-bottom: 1px solid $light-grey;
+    &:last-child {
+      border-bottom: none;
+    }
     li {
       border-bottom: none;
-
-      // &:last-child {
-      //   border-bottom: 1px solid #ccc;
-      // }
     }
   }
 }
 
 .border_bottom {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $light-grey;
   &:last-child {
     border-bottom: none;
   }
@@ -254,16 +180,8 @@ select {
   }
 }
 
-.pill {
-  background-color: #444;
-  color: #fff;
-  padding: 0.5rem 4rem;
-  text-align: center;
-  border-radius: 1.7rem;
-}
-
 .kickOff_time {
-  background-color: rgb(228, 226, 226);
+  background-color: #e4e2e2;
   padding: 1rem 2rem;
   border-radius: 0.4rem;
   font-size: 2.2rem;
@@ -278,18 +196,46 @@ select {
 }
 
 .home_venue,
-.home_contact {
+.team_contact {
   padding: 1rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $light-grey;
 }
 
-.home_contact {
-  margin-bottom: 3rem;
+.team_contact {
+  margin-bottom: 1rem;
 }
 
-// .welcome_msg {
-//   color: #ff033e;
-//   background-color: #f1f1f1;
-//   padding: 1rem 2rem;
-//   border-radius: 0.4rem;
-// }
+@media screen and (min-width: 992px) {
+  .row {
+    flex-direction: row;
+  }
+
+  .list {
+    font-size: 2rem;
+
+    .list_item {
+      flex-direction: row;
+    }
+  }
+
+  .fixture_container {
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  .fixture {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6rem;
+    padding: 1rem;
+
+    &_time {
+      width: 33%;
+    }
+  }
+
+  .team_badge_holder,
+  .team_fixture {
+    width: 33%;
+  }
+}

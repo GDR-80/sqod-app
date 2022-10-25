@@ -1,5 +1,4 @@
 import teamBadge from "../assets/panthers-badge.webp";
-import PlaceholderBadge from "../assets/soccer.png";
 
 export const users = [
   {
@@ -161,39 +160,6 @@ export const teams = [
   },
 ];
 
-export const players = [
-  {
-    id: "1",
-    name: "Liam Cooper",
-    age: "12",
-    team: 588588858959,
-  },
-  {
-    id: "2",
-    name: "Jack Harrison",
-    age: "13",
-    team: 588588858959,
-  },
-  {
-    id: "3",
-    name: "Tyler Adams",
-    age: "13",
-    team: 588588858959,
-  },
-  {
-    id: "4",
-    name: "Luke Ayling",
-    age: "12",
-    team: 588588858959,
-  },
-  {
-    id: "5",
-    name: "Joe Gelhart",
-    age: "12",
-    team: 588588858959,
-  },
-];
-
 export const fixtures = [
   {
     id: "cKazxAla1nhsp3aA1Hg286TCDMm5q5PUU0igjQkZoAK64JXYkcY1666594659518",
@@ -204,7 +170,6 @@ export const fixtures = [
       "mUHZu4ipurRkS6smrbIenakK1woH74EoI6OPSrmuPCfYWSRXpAU1665412054682",
     awayTeam:
       "6DfwsuyyG5p0IMtiTp5JKNwnhePMUdq3BRuO8JemyAURzWCeaar1666592940783",
-    teamBadge: teamBadge,
   },
 
   {
@@ -216,6 +181,5 @@ export const fixtures = [
       "ugHky4Re9t4LhLkr65bIlw2EsnMXyjP6PuWK1HeIXzUHseqO2tI1666592177758",
     awayTeam:
       "mUHZu4ipurRkS6smrbIenakK1woH74EoI6OPSrmuPCfYWSRXpAU1665412054682",
-    teamBadge: teamBadge,
   },
 ];

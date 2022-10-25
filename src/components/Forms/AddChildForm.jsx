@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { validate } from "../../validation";
 import { useSelector } from "react-redux";
 import { ADD_CHILD } from "../../redux/types";
-import AddChildInputs from "../AddChildInputs";
+import AddChildInputs from "./AddChildInputs";
 import { Navigate } from "react-router-dom";
 
 const AddChildForm = () => {
@@ -26,8 +26,6 @@ const AddChildForm = () => {
     copy[e.target.id] = e.target.value;
     _userInput[Number(e.target.name)] = copy;
     setUserInput(_userInput);
-    // const result = validate(4, _userInput);
-    // setErrors(result);
   };
 
   const onAddChildrenInput = () => {

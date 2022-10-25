@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 .btn {
   box-shadow: 0 0.4rem 0.6rem rgb(50 50 93 / 11%),
     0 0.1rem 0.3rem rgb(0 0 0 / 8%);
@@ -13,45 +15,38 @@
   cursor: pointer;
 }
 
-// .button {
-//   padding: 0 0 4rem 0;
-// }
-
 .btn_primary {
-  background-color: #00b4cc;
+  background-color: $primary;
 
   &:hover {
-    background-color: darken(#00b4cc, 10%);
+    background-color: darken($primary, 10%);
   }
 }
 
 .btn_edit {
-  background-color: #ffb74d;
+  background-color: $edit;
 
   &:hover {
-    background-color: darken(#ffb74d, 10%);
+    background-color: darken($edit, 10%);
   }
 }
 
 .btn_delete {
-  background-color: #ff033e;
+  background-color: $red-color;
 
   &:hover {
-    background-color: darken(#ff033e, 10%);
+    background-color: darken($red-color, 10%);
   }
 }
 
 .btn_success {
-  background-color: #66bb6a;
+  background-color: $success;
   &:hover {
-    background-color: darken(#66bb6a, 10%);
+    background-color: darken($success, 10%);
   }
 }
 
 .btn_info {
-  background-color: #90a4ae;
+  background-color: $info;
   cursor: inherit;
-  // &:hover {
-  //   background-color: darken(#66bb6a, 10%);
-  // }
 }

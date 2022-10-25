@@ -1,16 +1,17 @@
 import { useDispatch } from "react-redux";
 import { SET_SCREEN, SET_USER_TYPE } from "../redux/types";
 import { Link } from "react-router-dom";
+import BackgroundCard from "./UI/BackgroundCard";
 
 const UserType = () => {
   const dispatch = useDispatch();
   const manager = "manager";
   const parent = "parent";
   return (
-    <>
+    <BackgroundCard>
       <h1>Choose what type of Account you want</h1>
-      <div className="user_type_container">
-        <div className="user_type manager">
+      <div className="border_card_container">
+        <div className="border_card">
           <h2>{manager}</h2>
           <p>
             Create a Manager account and create a team, add players and parents,
@@ -28,7 +29,7 @@ const UserType = () => {
             </button>
           </Link>
         </div>
-        <div className="user_type parent">
+        <div className="border_card">
           <h2>{parent}</h2>
           <p>
             Create a Parent account and join a team, view upcoming fixtures and
@@ -46,7 +47,7 @@ const UserType = () => {
           </Link>
         </div>
       </div>
-    </>
+    </BackgroundCard>
   );
 };
 

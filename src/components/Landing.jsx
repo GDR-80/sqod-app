@@ -1,10 +1,11 @@
 import SignIn from "./Forms/SignIn";
+import Container from "./UI/Container";
 
 const Landing = () => {
   return (
     <>
       <div className="page_wrapper">
-        <div className="container">
+        <Container>
           <div className="welcome_container">
             <div className="welcome_text">
               <h1>
@@ -14,7 +15,7 @@ const Landing = () => {
             </div>
             <SignIn />
           </div>
-        </div>
+        </Container>
       </div>
     </>
   );

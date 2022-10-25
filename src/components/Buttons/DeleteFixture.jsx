@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Modal from "../Modal";
-import Backdrop from "../Backdrop";
+import Modal from "../UI/Modal";
+import Backdrop from "../UI/Backdrop";
 
-const EditPlayerButton = () => {
+const DeleteFixtureButton = () => {
   const [modalContent, setModalContent] = useState();
+
   return (
     <>
       {modalContent && (
@@ -16,15 +17,15 @@ const EditPlayerButton = () => {
         </>
       )}
       <button
-        className="btn btn_edit"
+        className="btn btn_delete ml"
         onClick={() => {
           setModalContent(2);
         }}
       >
-        Edit
+        Delete Fixture
       </button>
     </>
   );
 };
 
-export default EditPlayerButton;
+export default DeleteFixtureButton;

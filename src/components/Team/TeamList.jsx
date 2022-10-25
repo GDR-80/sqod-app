@@ -8,8 +8,7 @@ const TeamList = ({
   return (
     <>
       <div>
-        {/* TODO CHANGE INLINE STYLE */}
-        <h2 style={{ textAlign: "left" }}>Team List</h2>
+        <h2 className="align_left">Team List</h2>
         <ul className="list">
           <>
             {!childrenOnTeam || childrenOnTeam.length === 0 ? (
@@ -21,7 +20,6 @@ const TeamList = ({
                     <p>{child.name}</p>
                     {currentUser.userType === "manager" && (
                       <button
-                        // disabled={child.approved === true ? true : false}
                         onClick={() => {
                           onApprove(child.id, team.id);
                         }}

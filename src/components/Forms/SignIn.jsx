@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { SIGNUP_SCREEN, SET_CURRENT_USER } from "../../redux/types";
+import { SET_CURRENT_USER } from "../../redux/types";
 const SignIn = () => {
   const [signInName, setSignInName] = useState("");
   const [error, setError] = useState();
   const [signInPassword, setSignInPassword] = useState("");
   const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
-  // const screenMode = useSelector((state) => state.screenMode);
 
   const isUser = users.filter((user) => {
-    if (user.name === signInName) {
+    if (user.name === signInName && signInPassword === user.password) {
       return true;
     }
 
@@ -58,7 +57,9 @@ const SignIn = () => {
           ) : (
             <>
               {error && (
-                <p className="error error_message">User not recognised</p>
+                <p className="error error_message">
+                  Username or password is incorrect
+                </p>
               )}
               <button onClick={showError} className="btn btn_primary">
                 Sign In

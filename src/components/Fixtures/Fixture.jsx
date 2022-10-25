@@ -1,21 +1,12 @@
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import PlaceholderBadge from "../assets/soccer.png";
+import { Link } from "react-router-dom";
+import PlaceholderBadge from "../../assets/soccer.png";
 
-const FixtureTeamPage = ({
-  homeTeam,
-  awayTeam,
-  date,
-  meetTime,
-  kickOff,
-  teamBadge,
-  awayTeamBadge,
-  id,
-}) => {
+const Fixture = ({ homeTeam, awayTeam, date, kickOff, id }) => {
   const teams = useSelector((state) => state.teams);
   homeTeam = teams.find((team) => team.id === homeTeam);
   awayTeam = teams.find((team) => team.id === awayTeam);
-  let location = useLocation();
+
   return (
     <>
       <li className="border_bottom p_3">
@@ -23,10 +14,10 @@ const FixtureTeamPage = ({
           <div className="fixture">
             <div className="team_badge_holder">
               <div className="team_badge">
-                {!teamBadge ? (
+                {!homeTeam.teamBadge ? (
                   <img src={PlaceholderBadge} alt="" />
                 ) : (
-                  <img src={teamBadge} alt="" />
+                  <img src={homeTeam.teamBadge} alt="" />
                 )}
               </div>
               <p>{homeTeam.name}</p>
@@ -41,35 +32,27 @@ const FixtureTeamPage = ({
                   })
                   .replace(/,/g, "")}
               </p>
-              <p className="kickOff_time">
-                {/* {new Date(meetTime * 1000).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })} */}
-
-                {kickOff}
-              </p>
+              <p className="kickOff_time">{kickOff}</p>
             </div>
             <div className="team_fixture">
               <div className="team_badge">
-                {!awayTeamBadge ? (
+                {!awayTeam.teamBadge ? (
                   <img src={PlaceholderBadge} alt="" />
                 ) : (
-                  <img src={awayTeamBadge} alt="" />
+                  <img src={awayTeam.teamBadge} alt="" />
                 )}
               </div>
               <p>{awayTeam.name}</p>
             </div>
           </div>
         </div>
-        {location.pathname !== `/fixture/${id}` && (
-          <Link to={`/fixture/${id}`}>
-            <button className="btn btn_primary">View Fixture</button>
-          </Link>
-        )}
+
+        <Link to={`/fixture/${id}`}>
+          <button className="btn btn_primary">View Fixture</button>
+        </Link>
       </li>
     </>
   );
 };
 
-export default FixtureTeamPage;
+export default Fixture;

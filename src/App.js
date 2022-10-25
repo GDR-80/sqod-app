@@ -1,20 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import { SET_PLAYER_DATA } from "./redux/types";
 import Landing from "./components/Landing";
-import Home from "./pages/Home";
-import Players from "./pages/Players";
-import FixtureList from "./components/FixtureList";
-import PlayerDetail from "./components/PlayerDetail";
-import FixtureDetail from "./components/FixtureDetail";
-import TeamDetail from "./components/TeamDetail";
+import FixtureDetail from "./components/Fixtures/FixtureDetail";
+import TeamDetail from "./components/Team/TeamDetail";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import "./sass/App.scss";
 import SignUp from "./pages/SignUp";
-import CreateTeam from "./components/CreateTeam";
-import CreateFixture from "./components/CreateFixture";
-import EditTeam from "./components/EditTeam";
-import AddChild from "./components/AddChild";
+import CreateTeam from "./components/Team/CreateTeam";
+import CreateFixture from "./components/Fixtures/CreateFixture";
+import EditTeam from "./components/Team/EditTeam";
+import AddChild from "./components/Parent/AddChild";
 import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
@@ -46,14 +42,11 @@ const App = () => {
             path="/dashboard/parent/add-Child"
             element={<AddChild />}
           ></Route>
-          <Route exact path="/home" element={<Home />}></Route>
-          <Route exact path="/players" element={<Players />}></Route>
-          <Route path="/player/:playerId" element={<PlayerDetail />}></Route>
-          <Route exact path="/fixtures" element={<FixtureList />}></Route>
           <Route path="/fixture/:fixtureId" element={<FixtureDetail />}></Route>
           <Route path="/team/:teamId" element={<TeamDetail />}></Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

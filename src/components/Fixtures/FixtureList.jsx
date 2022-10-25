@@ -2,8 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Fixture from "./Fixture";
-import FixtureTeamPage from "./FixtureTeamPage";
-const FixtureList = ({ teamPage }) => {
+const FixtureList = () => {
   const { teamId } = useParams();
   const fixtures = useSelector((state) => state.fixtures);
   const currentUser = useSelector((state) => state.currentUser);
@@ -41,7 +40,7 @@ const FixtureList = ({ teamPage }) => {
           {fixturesToShow.length === 0
             ? "Loading..."
             : fixturesToShow.map((item) => (
-                <FixtureTeamPage
+                <Fixture
                   key={item.id}
                   homeTeam={item.homeTeam}
                   awayTeam={item.awayTeam}

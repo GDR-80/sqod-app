@@ -1,9 +1,9 @@
-import { users, teams, players, fixtures } from "../fakeApi";
+import { users, teams, fixtures } from "../fakeApi";
 
 export const initialState = {
   users,
   teams,
-  players,
+  // players,
   fixtures,
   screenMode: 0,
   currentUser: {},

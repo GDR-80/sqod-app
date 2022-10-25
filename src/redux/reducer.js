@@ -3,9 +3,6 @@ import { getItem, storeItem } from "../localStorage";
 import {
   SET_SCREEN,
   SEARCH_PLAYERS,
-  ADD_PLAYER,
-  DELETE_PLAYER,
-  EDIT_PLAYER,
   CREATE_USER,
   SET_CURRENT_USER,
   SET_USER_TYPE,
@@ -15,9 +12,9 @@ import {
   ADD_CHILD,
   SET_APPROVED,
   CREATE_FIXTURE,
+  DELETE_FIXTURE,
 } from "./types";
 import { searchFilter, generateRandomId } from "../utils";
-// import { players } from "../fakeApi";
 
 export function reducer(state = getItem("store") || initialState, action) {
   switch (action.type) {
@@ -31,7 +28,6 @@ export function reducer(state = getItem("store") || initialState, action) {
         email,
         phone,
         password,
-        // teams: [],
       };
 
       currentUser = newUser;
@@ -84,14 +80,10 @@ export function reducer(state = getItem("store") || initialState, action) {
     case SET_APPROVED: {
       const users = [...state.users];
 
-      // const teams = [...state.teams];
-      // const team = teams.find((team) => team.id == action.payload.team);
-
       users.forEach((user) => {
         if (user.children) {
           user.children.forEach((child) => {
             if (child.id === action.payload.id) {
-              // child.approved = true;
               child.approved === false
                 ? (child.approved = true)
                 : (child.approved = false);
@@ -99,13 +91,6 @@ export function reducer(state = getItem("store") || initialState, action) {
           });
         }
       });
-
-      // if (team.players && !team.players.includes(action.payload.id)) {
-      //   team.players.push(action.payload.id);
-      // } else {
-      //   team.players = [];
-      //   team.players.push(action.payload.id);
-      // }
       const newState = { ...state, users };
       storeItem("store", newState);
 
@@ -153,18 +138,45 @@ export function reducer(state = getItem("store") || initialState, action) {
 
       !user.teams ? (user.teams = []) : user.teams.push(newTeam.id);
 
-      // user.teams.length > 0
-      //   ? user.teams.push(newTeam.id)
-      //   : (user.teams = [].push(newTeam.id));
-
-      console.log(user.teams);
-
       currentUser.teams = user.teams;
-      // check to see if works!!!!!
       const newState = { ...state, teams, users, currentUser };
 
-      // storeItem("store", newState);
+      storeItem("store", newState);
 
+      return newState;
+    }
+
+    case EDIT_TEAM: {
+      const teams = [...state.teams];
+      const team = teams.find((team) => team.id === action.payload.id);
+
+      if (!team) return;
+
+      const { name, ageGroup, venue, postCode } = action.payload;
+      team.name = name;
+      team.ageGroup = ageGroup;
+      team.venue = venue;
+      team.postCode = postCode;
+
+      const newState = { ...state, teams };
+
+      storeItem("store", newState);
+
+      return newState;
+    }
+
+    case DELETE_TEAM: {
+      const currentUser = { ...state.currentUser };
+      const teams = [...state.teams];
+      const teamToDelete = currentUser.teams.indexOf(action.payload);
+      const teamToRemove = teams.indexOf(action.payload);
+
+      teams.splice(teamToRemove, 1);
+      currentUser.teams.splice(teamToDelete, 1);
+
+      const newState = { ...state, currentUser, teams };
+
+      storeItem("store", newState);
       return newState;
     }
 
@@ -195,82 +207,15 @@ export function reducer(state = getItem("store") || initialState, action) {
       return newState;
     }
 
-    case EDIT_TEAM: {
-      const teams = [...state.teams];
-      const team = teams.find((team) => team.id === action.payload.id);
-
-      if (!team) return;
-
-      const { name, ageGroup, venue, postCode } = action.payload;
-      team.name = name;
-      team.ageGroup = ageGroup;
-      team.venue = venue;
-      team.postCode = postCode;
-
-      const newState = { ...state, teams };
-
-      storeItem("store", newState);
-
-      return newState;
-    }
-
-    case DELETE_TEAM: {
-      const currentUser = { ...state.currentUser };
-      const teamToDelete = currentUser.teams.indexOf(action.payload);
-
-      currentUser.teams.splice(teamToDelete, 1);
-
-      const newState = { ...state, currentUser };
-
-      // storeItem("store", newState);
-      return newState;
-    }
-
-    case ADD_PLAYER: {
-      const players = [...state.players];
-
-      const newPlayer = {
-        id: generateRandomId(64),
-        name: action.payload.name,
-        age: action.payload.age,
-      };
-
-      players.push(newPlayer);
-
-      const newState = { ...state, players, filteredData: {} };
-
-      storeItem("store", newState);
-
-      return newState;
-    }
-
-    case EDIT_PLAYER: {
-      const players = [...state.players];
-      const player = players.find((player) => player.id === action.payload.id);
-
-      if (!player) return;
-
-      const { name, age } = action.payload;
-      player.name = name;
-      player.age = age;
-
-      const newState = { ...state, players, filteredData: {} };
-
-      storeItem("store", newState);
-
-      return newState;
-    }
-
-    case DELETE_PLAYER: {
-      const players = [...state.players];
-
-      const playerToDelete = players.findIndex(
+    case DELETE_FIXTURE: {
+      const fixtures = [...state.fixtures];
+      const fixtureToDelete = fixtures.findIndex(
         (item) => item.id === action.payload
       );
 
-      players.splice(playerToDelete, 1);
+      fixtures.splice(fixtureToDelete, 1);
 
-      const newState = { ...state, players, filteredData: {} };
+      const newState = { ...state, fixtures };
 
       storeItem("store", newState);
       return newState;

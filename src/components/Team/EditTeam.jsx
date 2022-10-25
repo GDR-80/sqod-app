@@ -1,4 +1,4 @@
-import EditTeamForm from "./Forms/EditTeamForm";
+import EditTeamForm from "../Forms/EditTeamForm";
 
 const EditTeam = () => {
   return (

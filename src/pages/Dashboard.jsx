@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import Manager from "../components/Manager";
-import Parent from "../components/Parent";
+import Manager from "../components/Manager/Manager";
+import Parent from "../components/Parent/Parent";
 import Container from "../components/UI/Container";
 
 const Dashboard = () => {
@@ -10,7 +10,6 @@ const Dashboard = () => {
   return (
     <Container>
       <h1>Dashboard</h1>
-      <p>Logged in as {userType}</p>
       {userType === manager && <Manager />}
       {userType === parent && <Parent />}
     </Container>

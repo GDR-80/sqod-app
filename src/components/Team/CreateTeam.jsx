@@ -1,5 +1,5 @@
-import CreateTeamForm from "./Forms/CreateTeamForm";
-import Container from "./UI/Container";
+import CreateTeamForm from "../Forms/CreateTeamForm";
+import Container from "../UI/Container";
 
 const CreateTeam = () => {
   return (

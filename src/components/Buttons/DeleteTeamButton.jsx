@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Modal from "../Modal";
-import Backdrop from "../Backdrop";
+import Modal from "../UI/Modal";
+import Backdrop from "../UI/Backdrop";
 
 const DeleteTeamButton = () => {
   const [modalContent, setModalContent] = useState();
@@ -19,10 +19,10 @@ const DeleteTeamButton = () => {
       <button
         className="btn btn_delete ml"
         onClick={() => {
-          setModalContent(5);
+          setModalContent(1);
         }}
       >
-        Delete
+        Delete Team
       </button>
     </>
   );

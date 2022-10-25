@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 .form {
   .form_input_container {
     width: 80%;
@@ -23,9 +25,9 @@
   padding: 4rem 0;
   min-width: 95%;
   margin: 6rem auto 0 auto;
-  color: #444;
+  color: $dark-grey;
   width: 400px;
-  background-color: #fff;
+  background-color: $white;
   border-radius: 0.4rem;
 
   label {

@@ -11,6 +11,7 @@ export const SET_APPROVED = "SET_APPROVED";
 export const ADD_CHILD = "ADD_CHILD";
 
 export const CREATE_FIXTURE = "CREATE_FIXTURE";
+export const DELETE_FIXTURE = "DELETE_FIXTURE";
 
 export const ADD_PLAYER = "ADD_PLAYER";
 export const DELETE_PLAYER = "DELETE_PLAYER";

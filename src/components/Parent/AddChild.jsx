@@ -1,4 +1,4 @@
-import AddChildForm from "./Forms/AddChildForm";
+import AddChildForm from "../Forms/AddChildForm";
 
 const AddChild = () => {
   return (
