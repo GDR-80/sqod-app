@@ -1,10 +1,4 @@
-const TeamList = ({
-  team,
-  onApprove,
-  manager,
-  childrenOnTeam,
-  currentUser,
-}) => {
+const TeamList = ({ team, onApprove, childrenOnTeam, currentUser }) => {
   return (
     <>
       <div>

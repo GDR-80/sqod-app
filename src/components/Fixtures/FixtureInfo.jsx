@@ -73,7 +73,7 @@ const FixtureInfo = ({ homeTeam, awayTeam, date, meetTime, kickOff }) => {
           <div className="team_contact">
             <h4>Away Team Contact</h4>
             <p>
-              <span className="profile_label">{awayTeamManager.name}</span>{" "}
+              <span className="profile_label">{awayTeamManager.name}</span>
               -&nbsp;
               {awayTeamManager.phone}
             </p>
