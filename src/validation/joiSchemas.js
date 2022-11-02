@@ -6,7 +6,7 @@ export const addPlayer = {
 };
 
 export const createUser = {
-  name: Joi.string().required(),
+  name: Joi.string().required().max(64),
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),
