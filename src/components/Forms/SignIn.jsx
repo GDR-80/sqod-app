@@ -2,20 +2,25 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SET_CURRENT_USER } from "../../redux/types";
+import Loader from "../UI/Loader";
 const SignIn = () => {
   const [signInName, setSignInName] = useState("");
   const [error, setError] = useState();
   const [signInPassword, setSignInPassword] = useState("");
+
   const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
+  if (!users) return <Loader />;
+  let isUser = false;
+  if (users.length > 0) {
+    isUser = users.filter((user) => {
+      if (user.name === signInName && signInPassword === user.password) {
+        return true;
+      }
 
-  const isUser = users.filter((user) => {
-    if (user.name === signInName && signInPassword === user.password) {
-      return true;
-    }
-
-    return false;
-  });
+      return false;
+    });
+  }
 
   const showError = () => {
     setError(true);
