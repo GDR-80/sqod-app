@@ -1,10 +1,10 @@
-import { users, teams, fixtures } from "../fakeApi";
+// import { users, teams, fixtures } from "../fakeApi";
 
 export const initialState = {
-  users,
-  teams,
+  // users,
+  // teams,
   // players,
-  fixtures,
+  // fixtures,
   screenMode: 0,
   currentUser: {},
 };

@@ -1,29 +1,43 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { SET_CURRENT_USER } from "../../redux/types";
+import axios from "axios";
 import Loader from "../UI/Loader";
 const SignIn = () => {
-  const [signInName, setSignInName] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState();
-  const [signInPassword, setSignInPassword] = useState("");
-
-  const users = useSelector((state) => state.users);
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  if (!users) return <Loader />;
-  let isUser = false;
-  if (users.length > 0) {
-    isUser = users.filter((user) => {
-      if (user.name === signInName && signInPassword === user.password) {
-        return true;
-      }
-
-      return false;
-    });
-  }
 
   const showError = () => {
     setError(true);
+  };
+
+  const onLogin = async () => {
+    const result = await axios.post("http://localhost:6001/login", {
+      email,
+      password,
+    });
+
+    const {
+      userData: currentUser,
+      status,
+      token,
+      teams,
+      fixtures,
+    } = result.data;
+
+    if (status === 1) {
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: { currentUser, token, teams, fixtures },
+      });
+      navigate("/dashboard");
+    } else {
+      showError();
+    }
   };
 
   return (
@@ -33,44 +47,31 @@ const SignIn = () => {
         <div className="signin_form">
           <input
             onInput={(e) => {
-              setSignInName(e.target.value);
-              setError();
+              setEmail(e.target.value);
             }}
             className="form_input"
             type="text"
           />
           <input
             onInput={(e) => {
-              setSignInPassword(e.target.value);
-              setError();
+              setPassword(e.target.value);
             }}
             className="form_input"
             type="password"
           />
-
-          {isUser.length > 0 ? (
-            <Link to="/dashboard">
-              <button
-                onClick={() => {
-                  dispatch({ type: SET_CURRENT_USER, payload: isUser[0] });
-                }}
-                className="btn btn_primary"
-              >
-                Sign In
-              </button>
-            </Link>
-          ) : (
-            <>
-              {error && (
-                <p className="error error_message">
-                  Username or password is incorrect
-                </p>
-              )}
-              <button onClick={showError} className="btn btn_primary">
-                Sign In
-              </button>
-            </>
+          {error && (
+            <p className="error error_message">
+              Username or password is incorrect
+            </p>
           )}
+          <button
+            onClick={() => {
+              onLogin();
+            }}
+            className="btn btn_primary"
+          >
+            Sign In
+          </button>
         </div>
         <div className="singnup_link">
           <Link to="/signup">

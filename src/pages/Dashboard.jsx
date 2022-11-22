@@ -4,14 +4,13 @@ import Parent from "../components/Parent/Parent";
 import Container from "../components/UI/Container";
 
 const Dashboard = () => {
-  const userType = useSelector((state) => state.currentUser.userType);
-  const manager = "manager";
-  const parent = "parent";
+  const userType = useSelector((state) => state.currentUser.user_type);
+
   return (
     <Container>
       <h1>Dashboard</h1>
-      {userType === manager && <Manager />}
-      {userType === parent && <Parent />}
+      {userType === 0 && <Manager />}
+      {userType === 1 && <Parent />}
     </Container>
   );
 };

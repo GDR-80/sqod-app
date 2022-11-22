@@ -6,7 +6,7 @@ import {
   CREATE_USER,
   SET_CURRENT_USER,
   SET_USER_TYPE,
-  CREATE_TEAM,
+  UPDATE_STORE,
   EDIT_TEAM,
   DELETE_TEAM,
   ADD_CHILD,
@@ -104,42 +104,40 @@ export function reducer(state = getItem("store") || initialState, action) {
     }
 
     case SET_CURRENT_USER: {
-      const newState = { ...state, currentUser: action.payload };
+      const newState = {
+        ...state,
+        currentUser: action.payload.currentUser,
+        token: action.payload.token,
+        fixtures: action.payload.fixtures,
+        teams: action.payload.teams,
+      };
       storeItem("store", newState);
       return newState;
     }
 
-    case CREATE_TEAM: {
-      const users = [...state.users];
-      const currentUser = { ...state.currentUser };
-      const teams = [...state.teams];
-      const { name, ageGroup, line1, line2, city, postCode } = action.payload;
-      const newTeam = {
-        id: generateRandomId(64),
-        name,
-        ageGroup,
-        manager: currentUser.id,
-        venue: {
-          address: {
-            line1,
-            line2,
-            city,
-            postCode,
-          },
-        },
-      };
+    case UPDATE_STORE: {
+      // const currentUser = { ...state.currentUser };
+      // const teams = [...state.teams];
+      // const { name, ageGroup, line1, line2, city, postCode } = action.payload;
+      // const newTeam = {
+      //   id: generateRandomId(64),
+      //   name,
+      //   ageGroup,
+      //   manager: currentUser.id,
+      //   venue: {
+      //     address: {
+      //       line1,
+      //       line2,
+      //       city,
+      //       postCode,
+      //     },
+      //   },
+      // };
 
-      teams.push(newTeam);
-      const user = users.find((user) => user.id === currentUser.id);
+      // teams.push(newTeam);
 
-      if (!user.teams) {
-        user.teams = [];
-      }
-
-      !user.teams ? (user.teams = []) : user.teams.push(newTeam.id);
-
-      currentUser.teams = user.teams;
-      const newState = { ...state, teams, users, currentUser };
+      // currentUser.teams.push(newTeam.id);
+      const newState = { ...state, ...action.payload };
 
       storeItem("store", newState);
 

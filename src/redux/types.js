@@ -4,7 +4,7 @@ export const SET_USER_TYPE = "SET_USER_TYPE";
 
 export const SET_SCREEN = "SET_SCREEN";
 
-export const CREATE_TEAM = "CREATE_TEAM";
+export const UPDATE_STORE = "UPDATE_STORE";
 export const EDIT_TEAM = "EDIT_TEAM";
 export const DELETE_TEAM = "DELETE_TEAM";
 export const SET_APPROVED = "SET_APPROVED";

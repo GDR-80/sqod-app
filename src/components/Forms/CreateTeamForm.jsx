@@ -1,13 +1,19 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validate } from "../../validation";
-import { CREATE_TEAM } from "../../redux/types";
+import { UPDATE_STORE } from "../../redux/types";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const CreateTeamForm = () => {
   const [userInput, setUserInput] = useState({});
   const [errors, setErrors] = useState();
   const [redirect, setRedirect] = useState(false);
+  const token = useSelector((state) => state.token);
+
+  const currentUser = useSelector((state) => state.currentUser);
+
+  console.log(currentUser);
 
   const inputRef = useRef();
   const dispatch = useDispatch();
@@ -22,14 +28,27 @@ const CreateTeamForm = () => {
     setErrors(result);
   };
 
-  const onSubmit = () => {
+  console.log(currentUser.id);
+
+  const onSubmit = async () => {
     if (
       Object.keys(userInput).length !== 0 &&
       Object.keys(errors).length === 0
     ) {
+      console.log("this worked");
+      const result = await axios.post("http://localhost:6001/createTeam", {
+        userInput,
+        currentUser: currentUser.id,
+      });
+
+      const newData = await axios.get("http://localhost:6001/syncStore", {
+        headers: { token },
+      });
+
+      console.log(newData);
       dispatch({
-        type: CREATE_TEAM,
-        payload: userInput,
+        type: UPDATE_STORE,
+        payload: newData.data,
       });
       setRedirect(true);
     }

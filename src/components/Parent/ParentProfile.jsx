@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 const ParentProfile = () => {
   const currentUser = useSelector((state) => state.currentUser);
   const teams = useSelector((state) => state.teams);
-  const { name, email, phone, userType, children } = currentUser;
+  const { name, email, phone, children } = currentUser;
+  const userType = "Parent";
   let myTeams = [];
   if (children) {
     myTeams = children.map((child) => {
-      return teams.find((team) => team.id === child.team);
+      return teams.find((team) => team.id === child.team_id);
     });
   }
 

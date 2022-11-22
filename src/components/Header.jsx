@@ -15,7 +15,7 @@ const Header = () => {
             <h1>
               Welcome to <span className="welcome_msg">SQOD,</span> {user.name}
             </h1>
-            <h4>Logged in as a {user.userType}</h4>
+            <h4>Logged in as a {user.user_type}</h4>
           </div>
         </header>
       )}
