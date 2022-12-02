@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const ManagerProfile = () => {
   const currentUser = useSelector((state) => state.currentUser);
-  console.log(currentUser);
   const allTeams = useSelector((state) => state.teams);
   const { teams, name, email, phone } = currentUser;
   const userType = "Manager";

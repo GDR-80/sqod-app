@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { validate } from "../../validation";
 import { useSelector } from "react-redux";
-import { ADD_CHILD } from "../../redux/types";
+import { UPDATE_STORE } from "../../redux/types";
 import AddChildInputs from "./AddChildInputs";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
 
 const AddChildForm = () => {
   const teams = useSelector((state) => state.teams);
+  const currentUser = useSelector((state) => state.currentUser);
+  const token = useSelector((state) => state.token);
   const [userInput, setUserInput] = useState([]);
   const [errors, setErrors] = useState([]);
   const [noOfChildren, setNoOfChildren] = useState(1);
@@ -41,7 +44,8 @@ const AddChildForm = () => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    console.log(userInput);
     // if (Object.keys(errors).length === 0) {
     const errors = [];
     userInput.forEach((item) => {
@@ -52,9 +56,18 @@ const AddChildForm = () => {
     setErrors(errors);
     console.log(errors);
     if (errors.length === 0) {
+      const result = await axios.post("http://localhost:6001/addChild", {
+        userInput,
+        currentUserId: currentUser.id,
+      });
+
+      const newData = await axios.get("http://localhost:6001/syncStore", {
+        headers: { token },
+      });
+
       dispatch({
-        type: ADD_CHILD,
-        payload: { children: userInput },
+        type: UPDATE_STORE,
+        payload: newData.data,
       });
       setRedirect(true);
     }

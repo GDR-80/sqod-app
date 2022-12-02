@@ -44,7 +44,7 @@ const AddChildInputs = ({ index, errors, teams, userInput }) => {
         <p className="error">{errors && errors.age}</p>
       </div>
       <div className="form_group">
-        <label htmlFor="ageGroup">Select a team to join</label>
+        <label htmlFor="ageGroup">Select an age group</label>
         <select defaultValue="" onChange={() => {}} name={index} id="ageGroup">
           <option disabled value="">
             SELECT AN AGE GROUP

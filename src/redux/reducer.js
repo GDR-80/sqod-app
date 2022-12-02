@@ -13,6 +13,7 @@ import {
   SET_APPROVED,
   CREATE_FIXTURE,
   DELETE_FIXTURE,
+  LOG_OUT,
 } from "./types";
 import { searchFilter, generateRandomId } from "../utils";
 
@@ -77,26 +78,6 @@ export function reducer(state = getItem("store") || initialState, action) {
       return newState;
     }
 
-    case SET_APPROVED: {
-      const users = [...state.users];
-
-      users.forEach((user) => {
-        if (user.children) {
-          user.children.forEach((child) => {
-            if (child.id === action.payload.id) {
-              child.approved === false
-                ? (child.approved = true)
-                : (child.approved = false);
-            }
-          });
-        }
-      });
-      const newState = { ...state, users };
-      storeItem("store", newState);
-
-      return newState;
-    }
-
     case SET_SCREEN: {
       const newState = { ...state, screenMode: action.payload };
 
@@ -116,32 +97,37 @@ export function reducer(state = getItem("store") || initialState, action) {
     }
 
     case UPDATE_STORE: {
-      // const currentUser = { ...state.currentUser };
-      // const teams = [...state.teams];
-      // const { name, ageGroup, line1, line2, city, postCode } = action.payload;
-      // const newTeam = {
-      //   id: generateRandomId(64),
-      //   name,
-      //   ageGroup,
-      //   manager: currentUser.id,
-      //   venue: {
-      //     address: {
-      //       line1,
-      //       line2,
-      //       city,
-      //       postCode,
-      //     },
-      //   },
-      // };
-
-      // teams.push(newTeam);
-
-      // currentUser.teams.push(newTeam.id);
       const newState = { ...state, ...action.payload };
 
       storeItem("store", newState);
 
       return newState;
+    }
+
+    case LOG_OUT: {
+      const newState = { ...initialState };
+
+      storeItem("store", newState);
+
+      return newState;
+    }
+
+    case SET_APPROVED: {
+      // const users = [...state.users];
+      // users.forEach((user) => {
+      //   if (user.children) {
+      //     user.children.forEach((child) => {
+      //       if (child.id === action.payload.id) {
+      //         child.approved === false
+      //           ? (child.approved = true)
+      //           : (child.approved = false);
+      //       }
+      //     });
+      //   }
+      // });
+      // const newState = { ...state, teams };
+      // storeItem("store", newState);
+      // return newState;
     }
 
     case EDIT_TEAM: {

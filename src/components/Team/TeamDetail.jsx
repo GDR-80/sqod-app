@@ -2,39 +2,54 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteTeamButton from "../Buttons/DeleteTeamButton";
 import Container from "../UI/Container";
-import { SET_APPROVED } from "../../redux/types";
+import Loader from "../UI/Loader";
+import { UPDATE_STORE } from "../../redux/types";
 import TeamList from "./TeamList";
 import BackgroundCard from "../UI/BackgroundCard";
 import FixtureList from "../Fixtures/FixtureList";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const TeamDetail = () => {
   const { teamId } = useParams();
   const teams = useSelector((state) => state.teams);
-  const users = useSelector((state) => state.users);
+
   const currentUser = useSelector((state) => state.currentUser);
+  const token = useSelector((state) => state.token);
+
+  const { children } = currentUser;
 
   const dispatch = useDispatch();
 
-  const team = teams.find((team) => team.id === teamId);
+  const team = teams.find((team) => team.id === Number(teamId));
   if (!team) {
     return <Navigate replace to={"/dashboard"} />;
   }
-  const manager = users.find((user) => user.id === team.manager);
-  const allChildren = [];
-  users.forEach((user) => {
-    if (user.children) {
-      user.children.forEach((child) => {
-        if (child.team === teamId) {
-          allChildren.push(child);
-        }
-      });
-    }
-  });
 
-  const childrenOnTeam = allChildren.filter((child) => child.team === team.id);
+  const childrenOnTeam = children.filter(
+    (child) => child.team_id === Number(teamId)
+  );
 
-  const onApprove = (id, team) => {
-    dispatch({ type: SET_APPROVED, payload: { id, team } });
+  if (!childrenOnTeam) {
+    return <Loader />;
+  }
+
+  const onApprove = async (id, isApproved) => {
+    isApproved === 0 ? (isApproved = 1) : (isApproved = 0);
+
+    const results = await axios.post("http://localhost:6001/setApproved", {
+      id,
+      isApproved,
+    });
+
+    const newData = await axios.get("http://localhost:6001/syncStore", {
+      headers: { token },
+    });
+
+    dispatch({
+      type: UPDATE_STORE,
+      payload: newData.data,
+    });
   };
 
   return (
@@ -44,17 +59,16 @@ const TeamDetail = () => {
           <TeamList
             team={team}
             onApprove={onApprove}
-            manager={manager}
             childrenOnTeam={childrenOnTeam}
             currentUser={currentUser}
           />
           <FixtureList teamId={teamId} />
-          <div className="">
+          <div>
             <Link to="/dashboard">
               <button className="btn btn_primary">Dashboard</button>
             </Link>
 
-            {currentUser.userType === "manager" && (
+            {currentUser.user_type === 0 && (
               <>
                 <Link to={`/dashboard/manager/edit-team/${teamId}`}>
                   <button className="btn btn_edit ml">Edit Team</button>

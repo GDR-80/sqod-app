@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { validate } from "../../validation";
 import { CREATE_FIXTURE } from "../../redux/types";
 
@@ -16,7 +16,9 @@ const CreateFixtureForm = () => {
     inputRef.current.focus();
   }, []);
 
-  const currentTeam = teams.find((team) => team.id === teamId);
+  const currentTeam = teams.find((team) => team.id === Number(teamId));
+
+  console.log(currentTeam, "<<>>");
 
   let oppositionList = [];
   teams.forEach((team) => {

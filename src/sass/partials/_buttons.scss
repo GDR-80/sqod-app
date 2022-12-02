@@ -50,3 +50,14 @@
   background-color: $info;
   cursor: inherit;
 }
+
+.btn_primary-accent {
+  background-color: #e4e2e2;
+  color: $dark-grey;
+  box-shadow: none;
+  &:hover {
+    background-color: $red-color;
+    color: $white;
+    box-shadow: none;
+  }
+}

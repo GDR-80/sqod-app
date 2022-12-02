@@ -1,13 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validate } from "../../validation";
-import { EDIT_TEAM } from "../../redux/types";
+import { UPDATE_STORE } from "../../redux/types";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
 const EditTeamForm = () => {
   const { teamId } = useParams();
   const teams = useSelector((state) => state.teams);
-  const team = teams.find((item) => item.id === teamId);
+  const team = teams.find((item) => item.id === Number(teamId));
+  const currentUser = useSelector((state) => state.currentUser);
+  const token = useSelector((state) => state.token);
+
   const { city, postCode, line1, line2 } = team.venue.address;
   const [userInput, setUserInput] = useState({
     city,
@@ -33,24 +37,24 @@ const EditTeamForm = () => {
     setErrors(result);
   };
 
-  const onSubmit = () => {
+  // console.log(Object.keys(errors));
+
+  const onSubmit = async () => {
     if (Object.keys(errors).length === 0) {
-      const { name, ageGroup, line1, line2, city, postCode } = userInput;
+      const result = await axios.put("http://localhost:6001/editTeam", {
+        userInput,
+        currentUser: currentUser.id,
+        teamId,
+        addressId: team.address_id,
+      });
+
+      const newData = await axios.get("http://localhost:6001/syncStore", {
+        headers: { token },
+      });
+
       dispatch({
-        type: EDIT_TEAM,
-        payload: {
-          name,
-          ageGroup,
-          venue: {
-            address: {
-              line1,
-              line2,
-              city,
-              postCode,
-            },
-          },
-          id: teamId,
-        },
+        type: UPDATE_STORE,
+        payload: newData.data,
       });
     }
   };
@@ -101,7 +105,7 @@ const EditTeamForm = () => {
             className="form_input"
             placeholder="Line Two"
             id="line2"
-            defaultValue={team.venue.address.lineTwo}
+            defaultValue={team.venue.address.line2}
           />
           <p className="error">{errors && errors.line2}</p>
 

@@ -9,12 +9,12 @@ import DeleteFixtureButton from "../Buttons/DeleteFixture";
 const FixtureDetail = () => {
   const { fixtureId } = useParams();
   const fixtures = useSelector((state) => state.fixtures);
-  const fixture = fixtures.find((item) => item.id === fixtureId);
+  const fixture = fixtures.find((item) => item.id === Number(fixtureId));
 
   if (!fixture) {
     return <Navigate replace to={"/dashboard"} />;
   }
-  const { homeTeam, awayTeam, date, meetTime, kickOff } = fixture;
+  const { managers, homeTeamId, awayTeamId, meetTime, kickOffTime } = fixture;
 
   return (
     <Container>
@@ -23,11 +23,11 @@ const FixtureDetail = () => {
           <>
             <FixtureInfo
               key={fixture.id}
-              homeTeam={homeTeam}
-              awayTeam={awayTeam}
-              date={date}
+              homeTeamId={homeTeamId}
+              awayTeamId={awayTeamId}
               meetTime={meetTime}
-              kickOff={kickOff}
+              managers={managers}
+              kickOff={kickOffTime}
               id={fixture.id}
             />
 

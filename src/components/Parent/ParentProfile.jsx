@@ -6,6 +6,7 @@ const ParentProfile = () => {
   const teams = useSelector((state) => state.teams);
   const { name, email, phone, children } = currentUser;
   const userType = "Parent";
+
   let myTeams = [];
   if (children) {
     myTeams = children.map((child) => {
@@ -69,7 +70,7 @@ const ParentProfile = () => {
                           <span className="profile_label">Child: </span>
                           {child.name}
                         </p>
-                        {!child.approved ? (
+                        {child.approved === 0 ? (
                           <button className="btn btn_info">
                             Waiting to be approved
                           </button>
@@ -82,7 +83,8 @@ const ParentProfile = () => {
                           <span className="profile_label">Team: </span>
                           {myTeams[index].name}
                         </p>
-                        <Link to={`/team/${myTeams[index].id}`}>
+
+                        <Link to={`/team/${child.team_id}`}>
                           <button className="btn btn_primary">View Team</button>
                         </Link>
                       </li>

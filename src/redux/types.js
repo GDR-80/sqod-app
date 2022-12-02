@@ -2,6 +2,8 @@ export const CREATE_USER = "CREATE_USER";
 export const SET_CURRENT_USER = "SET_CURRENT_USER ";
 export const SET_USER_TYPE = "SET_USER_TYPE";
 
+export const LOG_OUT = "LOG_OUT";
+
 export const SET_SCREEN = "SET_SCREEN";
 
 export const UPDATE_STORE = "UPDATE_STORE";

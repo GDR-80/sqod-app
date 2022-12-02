@@ -1,4 +1,4 @@
-const TeamList = ({ team, onApprove, childrenOnTeam, currentUser }) => {
+const TeamList = ({ onApprove, childrenOnTeam, currentUser }) => {
   return (
     <>
       <div>
@@ -12,18 +12,18 @@ const TeamList = ({ team, onApprove, childrenOnTeam, currentUser }) => {
                 return (
                   <li className="list_item" key={child.id}>
                     <p>{child.name}</p>
-                    {currentUser.userType === "manager" && (
+                    {currentUser.user_type === 0 && (
                       <button
                         onClick={() => {
-                          onApprove(child.id, team.id);
+                          onApprove(child.id, child.approved);
                         }}
                         className={
-                          child.approved === false
+                          child.approved == false
                             ? "btn btn_edit"
                             : "btn btn_success"
                         }
                       >
-                        {child.approved === false ? "Approve" : "Approved"}
+                        {child.approved == false ? "Approve" : "Approved"}
                       </button>
                     )}
                   </li>

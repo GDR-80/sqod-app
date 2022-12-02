@@ -1,13 +1,16 @@
 import PlaceholderBadge from "../../assets/soccer.png";
 import { useSelector } from "react-redux";
 
-const FixtureInfo = ({ homeTeam, awayTeam, date, meetTime, kickOff }) => {
+const FixtureInfo = ({
+  managers,
+  homeTeamId,
+  awayTeamId,
+  meetTime,
+  kickOff,
+}) => {
   const teams = useSelector((state) => state.teams);
-  const users = useSelector((state) => state.users);
-  homeTeam = teams.find((team) => team.id === homeTeam);
-  awayTeam = teams.find((team) => team.id === awayTeam);
-  const manager = users.find((user) => user.id === homeTeam.manager);
-  const awayTeamManager = users.find((user) => user.id === awayTeam.manager);
+  const homeTeam = teams.find((team) => team.id === homeTeamId);
+  const awayTeam = teams.find((team) => team.id === awayTeamId);
   const { name, ageGroup, teamBadge } = homeTeam;
   const { line1, line2, city, postCode } = homeTeam.venue.address;
 
@@ -29,7 +32,7 @@ const FixtureInfo = ({ homeTeam, awayTeam, date, meetTime, kickOff }) => {
           </div>
           <div className="fixture_time">
             <p>
-              {new Date(date * 1000)
+              {new Date(kickOff * 1000)
                 .toLocaleString("default", {
                   weekday: "short",
                   day: "2-digit",
@@ -37,7 +40,11 @@ const FixtureInfo = ({ homeTeam, awayTeam, date, meetTime, kickOff }) => {
                 })
                 .replace(/,/g, "")}
             </p>
-            <p className="kickOff_time">{kickOff}</p>
+            <p className="kickOff_time">
+              {new Date(kickOff * 1000).toLocaleTimeString("default", {
+                timeStyle: "short",
+              })}
+            </p>
           </div>
           <div className="team_fixture">
             <div className="team_badge">
@@ -55,7 +62,12 @@ const FixtureInfo = ({ homeTeam, awayTeam, date, meetTime, kickOff }) => {
       </div>
       <div className="row">
         <div className="homeTeam">
-          <p className="pill">Meet at {meetTime}</p>
+          <p className="pill">
+            Meet at{" "}
+            {new Date(meetTime * 1000).toLocaleTimeString("default", {
+              timeStyle: "short",
+            })}
+          </p>
           <h4>Venue</h4>
           <ul className="home_venue">
             <li>{line1}</li>
@@ -66,16 +78,17 @@ const FixtureInfo = ({ homeTeam, awayTeam, date, meetTime, kickOff }) => {
           <div className="team_contact">
             <h4>Home Team Contact</h4>
             <p>
-              <span className="profile_label">{manager.name}</span> -&nbsp;
-              {manager.phone}
+              <span className="profile_label">{managers.home.name}</span>{" "}
+              -&nbsp;
+              {managers.home.phone}
             </p>
           </div>
           <div className="team_contact">
             <h4>Away Team Contact</h4>
             <p>
-              <span className="profile_label">{awayTeamManager.name}</span>
+              <span className="profile_label">{managers.away.name}</span>
               -&nbsp;
-              {awayTeamManager.phone}
+              {managers.away.phone}
             </p>
           </div>
         </div>

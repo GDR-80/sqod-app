@@ -12,9 +12,6 @@ const CreateTeamForm = () => {
   const token = useSelector((state) => state.token);
 
   const currentUser = useSelector((state) => state.currentUser);
-
-  console.log(currentUser);
-
   const inputRef = useRef();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,14 +25,11 @@ const CreateTeamForm = () => {
     setErrors(result);
   };
 
-  console.log(currentUser.id);
-
   const onSubmit = async () => {
     if (
       Object.keys(userInput).length !== 0 &&
       Object.keys(errors).length === 0
     ) {
-      console.log("this worked");
       const result = await axios.post("http://localhost:6001/createTeam", {
         userInput,
         currentUser: currentUser.id,
@@ -45,7 +39,6 @@ const CreateTeamForm = () => {
         headers: { token },
       });
 
-      console.log(newData);
       dispatch({
         type: UPDATE_STORE,
         payload: newData.data,

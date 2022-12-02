@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import PlaceholderBadge from "../../assets/soccer.png";
 
-const Fixture = ({ homeTeam, awayTeam, date, kickOff, id }) => {
+const Fixture = ({ homeTeamId, awayTeamId, kickOff, id }) => {
   const teams = useSelector((state) => state.teams);
-  homeTeam = teams.find((team) => team.id === homeTeam);
-  awayTeam = teams.find((team) => team.id === awayTeam);
+  const homeTeam1 = teams.find((team) => team.id === homeTeamId);
+  const awayTeam2 = teams.find((team) => team.id === awayTeamId);
 
   return (
     <>
@@ -14,17 +14,17 @@ const Fixture = ({ homeTeam, awayTeam, date, kickOff, id }) => {
           <div className="fixture">
             <div className="team_badge_holder">
               <div className="team_badge">
-                {!homeTeam.teamBadge ? (
+                {!homeTeam1.teamBadge ? (
                   <img src={PlaceholderBadge} alt="" />
                 ) : (
-                  <img src={homeTeam.teamBadge} alt="" />
+                  <img src={homeTeam1.teamBadge} alt="" />
                 )}
               </div>
-              <p>{homeTeam.name}</p>
+              <p>{homeTeam1.name}</p>
             </div>
             <div className="fixture_time">
               <p>
-                {new Date(date * 1000)
+                {new Date(kickOff * 1000)
                   .toLocaleString("default", {
                     weekday: "short",
                     day: "2-digit",
@@ -32,17 +32,21 @@ const Fixture = ({ homeTeam, awayTeam, date, kickOff, id }) => {
                   })
                   .replace(/,/g, "")}
               </p>
-              <p className="kickOff_time">{kickOff}</p>
+              <p className="kickOff_time">
+                {new Date(kickOff * 1000).toLocaleTimeString("default", {
+                  timeStyle: "short",
+                })}
+              </p>
             </div>
             <div className="team_fixture">
               <div className="team_badge">
-                {!awayTeam.teamBadge ? (
+                {!awayTeam2.teamBadge ? (
                   <img src={PlaceholderBadge} alt="" />
                 ) : (
-                  <img src={awayTeam.teamBadge} alt="" />
+                  <img src={awayTeam2.teamBadge} alt="" />
                 )}
               </div>
-              <p>{awayTeam.name}</p>
+              <p>{awayTeam2.name}</p>
             </div>
           </div>
         </div>

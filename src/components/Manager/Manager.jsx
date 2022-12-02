@@ -48,7 +48,7 @@ const Manager = () => {
               <p>Manage your profile, view your teams</p>
 
               <button className="btn btn_primary" onClick={onHandleLinkBack}>
-                Create a Team
+                Go to Profile
               </button>
             </div>
           </div>

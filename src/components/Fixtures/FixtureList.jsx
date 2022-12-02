@@ -3,13 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Fixture from "./Fixture";
 const FixtureList = () => {
-  const { teamId } = useParams();
+  let { teamId } = useParams();
   const fixtures = useSelector((state) => state.fixtures);
   const currentUser = useSelector((state) => state.currentUser);
   const manager = "manager";
 
+  teamId = Number(teamId);
+
   const fixturesToShow = fixtures.filter(
-    (fixture) => fixture.homeTeam === teamId || fixture.awayTeam === teamId
+    (fixture) => fixture.homeTeamId === teamId || fixture.awayTeamId === teamId
   );
 
   return (
@@ -24,7 +26,7 @@ const FixtureList = () => {
         }}
       >
         <h2>Fixtures</h2>
-        {currentUser.userType === manager && (
+        {currentUser.user_type === 0 && (
           <Link to={`/dashboard/manager/create-fixture/${teamId}`}>
             <button
               style={{ marginBottom: "2rem" }}
@@ -42,13 +44,12 @@ const FixtureList = () => {
             : fixturesToShow.map((item) => (
                 <Fixture
                   key={item.id}
-                  homeTeam={item.homeTeam}
-                  awayTeam={item.awayTeam}
-                  date={item.date}
+                  managers={item.managers}
+                  homeTeamId={item.homeTeamId}
+                  awayTeamId={item.awayTeamId}
                   meetTime={item.meetTime}
-                  kickOff={item.kickOff}
+                  kickOff={item.kickOffTime}
                   teamBadge={item.teamBadge}
-                  awayTeamBadge={item.awayTeamBadge}
                   id={item.id}
                 />
               ))}
