@@ -4,7 +4,7 @@ import Parent from "../components/Parent/Parent";
 import Container from "../components/UI/Container";
 
 const Dashboard = () => {
-  const userType = useSelector((state) => state.currentUser.user_type);
+  const userType = useSelector((state) => state.currentUser.userType);
 
   return (
     <Container>

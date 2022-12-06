@@ -45,7 +45,6 @@ const AddChildForm = () => {
   };
 
   const onSubmit = async () => {
-    console.log(userInput);
     // if (Object.keys(errors).length === 0) {
     const errors = [];
     userInput.forEach((item) => {
@@ -60,6 +59,8 @@ const AddChildForm = () => {
         userInput,
         currentUserId: currentUser.id,
       });
+
+      console.log(result.data);
 
       const newData = await axios.get("http://localhost:6001/syncStore", {
         headers: { token },

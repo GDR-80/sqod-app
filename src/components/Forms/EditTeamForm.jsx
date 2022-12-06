@@ -6,11 +6,13 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 const EditTeamForm = () => {
-  const { teamId } = useParams();
+  let { teamId } = useParams();
   const teams = useSelector((state) => state.teams);
   const team = teams.find((item) => item.id === Number(teamId));
   const currentUser = useSelector((state) => state.currentUser);
   const token = useSelector((state) => state.token);
+
+  teamId = Number(teamId);
 
   const { city, postCode, line1, line2 } = team.venue.address;
   const [userInput, setUserInput] = useState({
@@ -45,7 +47,7 @@ const EditTeamForm = () => {
         userInput,
         currentUser: currentUser.id,
         teamId,
-        addressId: team.address_id,
+        addressId: team.addressId,
       });
 
       const newData = await axios.get("http://localhost:6001/syncStore", {

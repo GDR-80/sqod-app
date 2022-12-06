@@ -8,7 +8,6 @@ import TeamList from "./TeamList";
 import BackgroundCard from "../UI/BackgroundCard";
 import FixtureList from "../Fixtures/FixtureList";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 const TeamDetail = () => {
   const { teamId } = useParams();
@@ -27,7 +26,7 @@ const TeamDetail = () => {
   }
 
   const childrenOnTeam = children.filter(
-    (child) => child.team_id === Number(teamId)
+    (child) => child.teamId === Number(teamId)
   );
 
   if (!childrenOnTeam) {
@@ -68,7 +67,7 @@ const TeamDetail = () => {
               <button className="btn btn_primary">Dashboard</button>
             </Link>
 
-            {currentUser.user_type === 0 && (
+            {currentUser.userType === 0 && (
               <>
                 <Link to={`/dashboard/manager/edit-team/${teamId}`}>
                   <button className="btn btn_edit ml">Edit Team</button>

@@ -32,9 +32,7 @@ const Header = () => {
             <h1>
               Welcome to <span className="welcome_msg">SQOD,</span> {user.name}
             </h1>
-            <h4>
-              Logged in as a {user.user_type === 0 ? "Manager" : "Parent"}
-            </h4>
+            <h4>Logged in as a {user.userType === 0 ? "Manager" : "Parent"}</h4>
             <button className="btn btn_primary-accent" onClick={onLogOut}>
               Log Out
             </button>

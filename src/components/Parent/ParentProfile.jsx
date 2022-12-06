@@ -10,7 +10,7 @@ const ParentProfile = () => {
   let myTeams = [];
   if (children) {
     myTeams = children.map((child) => {
-      return teams.find((team) => team.id === child.team_id);
+      return teams.find((team) => team.id === child.teamId);
     });
   }
 
@@ -84,7 +84,7 @@ const ParentProfile = () => {
                           {myTeams[index].name}
                         </p>
 
-                        <Link to={`/team/${child.team_id}`}>
+                        <Link to={`/team/${child.teamId}`}>
                           <button className="btn btn_primary">View Team</button>
                         </Link>
                       </li>

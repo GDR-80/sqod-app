@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { SET_SCREEN, UPDATE_STORE } from "../redux/types";
-import { Link, useNavigate } from "react-router-dom";
+import { UPDATE_STORE } from "../redux/types";
+import { useNavigate } from "react-router-dom";
 import BackgroundCard from "./UI/BackgroundCard";
 import axios from "axios";
 
@@ -13,7 +13,6 @@ const UserType = () => {
   const parent = "parent";
 
   const onSubmit = async (user_type) => {
-    console.log("hello world");
     const results = await axios.post("http://localhost:6001/createUser", {
       currentUser,
       user_type,
@@ -21,9 +20,10 @@ const UserType = () => {
 
     const { status } = results.data;
 
-    console.log(results);
     if (status === 1) {
       onLogin();
+    } else {
+      navigate("/");
     }
   };
 
@@ -60,17 +60,16 @@ const UserType = () => {
             Create a Manager account and create a team, add players and parents,
             create fixtures and ask for availabilty for matches.
           </p>
-          <Link to="/dashboard">
-            <button
-              className="btn btn_primary"
-              onClick={() => {
-                onSubmit(0);
-                // dispatch({ type: SET_SCREEN, payload: 0 });
-              }}
-            >
-              Manager
-            </button>
-          </Link>
+
+          <button
+            className="btn btn_primary"
+            onClick={() => {
+              onSubmit(0);
+              // dispatch({ type: SET_SCREEN, payload: 0 });
+            }}
+          >
+            Manager
+          </button>
         </div>
         <div className="border_card">
           <h2>{parent}</h2>
@@ -78,17 +77,16 @@ const UserType = () => {
             Create a Parent account and join a team, view upcoming fixtures and
             set availabilty for matches.
           </p>
-          <Link to="/dashboard">
-            <button
-              className="btn btn_primary"
-              onClick={() => {
-                onSubmit(1);
-                // dispatch({ type: SET_SCREEN, payload: 0 });
-              }}
-            >
-              Parent
-            </button>
-          </Link>
+
+          <button
+            className="btn btn_primary"
+            onClick={() => {
+              onSubmit(1);
+              // dispatch({ type: SET_SCREEN, payload: 0 });
+            }}
+          >
+            Parent
+          </button>
         </div>
       </div>
     </BackgroundCard>
