@@ -16,8 +16,8 @@ const Header = () => {
     });
 
     if (results.data.status === 1) {
-      dispatch({ type: LOG_OUT });
       navigate("/");
+      dispatch({ type: LOG_OUT });
     }
   };
 

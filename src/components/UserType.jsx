@@ -1,12 +1,55 @@
-import { useDispatch } from "react-redux";
-import { SET_SCREEN, SET_USER_TYPE } from "../redux/types";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_SCREEN, UPDATE_STORE } from "../redux/types";
+import { Link, useNavigate } from "react-router-dom";
 import BackgroundCard from "./UI/BackgroundCard";
+import axios from "axios";
 
 const UserType = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser);
   const manager = "manager";
   const parent = "parent";
+
+  const onSubmit = async (user_type) => {
+    console.log("hello world");
+    const results = await axios.post("http://localhost:6001/createUser", {
+      currentUser,
+      user_type,
+    });
+
+    const { status } = results.data;
+
+    console.log(results);
+    if (status === 1) {
+      onLogin();
+    }
+  };
+
+  const onLogin = async () => {
+    const result = await axios.post("http://localhost:6001/login", {
+      email: currentUser.email,
+      password: currentUser.password,
+    });
+
+    console.log(result, "<<<<<<<<<<<");
+    dispatch({ type: "SET_TOKEN", payload: result.data.token });
+
+    if (result.data.status === 1) {
+      const newData = await axios.get("http://localhost:6001/syncStore", {
+        headers: { token: result.data.token },
+      });
+
+      dispatch({
+        type: UPDATE_STORE,
+        payload: newData.data,
+      });
+
+      navigate("/dashboard");
+    }
+  };
+
   return (
     <BackgroundCard>
       <h1>Choose what type of Account you want</h1>
@@ -21,8 +64,8 @@ const UserType = () => {
             <button
               className="btn btn_primary"
               onClick={() => {
-                dispatch({ type: SET_USER_TYPE, payload: manager });
-                dispatch({ type: SET_SCREEN, payload: 0 });
+                onSubmit(0);
+                // dispatch({ type: SET_SCREEN, payload: 0 });
               }}
             >
               Manager
@@ -39,7 +82,8 @@ const UserType = () => {
             <button
               className="btn btn_primary"
               onClick={() => {
-                dispatch({ type: SET_USER_TYPE, payload: parent });
+                onSubmit(1);
+                // dispatch({ type: SET_SCREEN, payload: 0 });
               }}
             >
               Parent

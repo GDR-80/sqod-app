@@ -21,7 +21,7 @@ const TeamDetail = () => {
 
   const dispatch = useDispatch();
 
-  const team = teams.find((team) => team.id === Number(teamId));
+  const team = teams && teams.find((team) => team.id === Number(teamId));
   if (!team) {
     return <Navigate replace to={"/dashboard"} />;
   }

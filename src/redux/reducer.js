@@ -20,11 +20,10 @@ import { searchFilter, generateRandomId } from "../utils";
 export function reducer(state = getItem("store") || initialState, action) {
   switch (action.type) {
     case CREATE_USER: {
-      const users = [...state.users];
+      // const users = [...state.users];
       let currentUser = { ...state.currentUser };
       const { name, email, phone, password } = action.payload;
       const newUser = {
-        id: generateRandomId(64),
         name,
         email,
         phone,
@@ -33,31 +32,36 @@ export function reducer(state = getItem("store") || initialState, action) {
 
       currentUser = newUser;
 
-      users.push(newUser);
-
-      const newState = { ...state, users, currentUser };
+      const newState = { ...state, currentUser };
 
       storeItem("store", newState);
 
       return newState;
     }
 
-    case SET_USER_TYPE: {
-      const users = [...state.users];
-      const currentUser = { ...state.currentUser };
-      let screenMode = { ...state.screenMode };
-
-      const user = users.find((user) => currentUser.id === user.id);
-
-      user.userType = action.payload;
-
-      screenMode = 0;
-
-      const newState = { ...state, users, screenMode };
+    case "SET_TOKEN": {
+      const newState = { ...state, token: action.payload };
       storeItem("store", newState);
 
       return newState;
     }
+
+    // case SET_USER_TYPE: {
+    //   const users = [...state.users];
+    //   const currentUser = { ...state.currentUser };
+    //   let screenMode = { ...state.screenMode };
+
+    //   const user = users.find((user) => currentUser.id === user.id);
+
+    //   user.userType = action.payload;
+
+    //   screenMode = 0;
+
+    //   const newState = { ...state, users, screenMode };
+    //   storeItem("store", newState);
+
+    //   return newState;
+    // }
 
     case ADD_CHILD: {
       const users = [...state.users];
@@ -110,24 +114,6 @@ export function reducer(state = getItem("store") || initialState, action) {
       storeItem("store", newState);
 
       return newState;
-    }
-
-    case SET_APPROVED: {
-      // const users = [...state.users];
-      // users.forEach((user) => {
-      //   if (user.children) {
-      //     user.children.forEach((child) => {
-      //       if (child.id === action.payload.id) {
-      //         child.approved === false
-      //           ? (child.approved = true)
-      //           : (child.approved = false);
-      //       }
-      //     });
-      //   }
-      // });
-      // const newState = { ...state, teams };
-      // storeItem("store", newState);
-      // return newState;
     }
 
     case EDIT_TEAM: {

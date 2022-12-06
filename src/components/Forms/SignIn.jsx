@@ -21,27 +21,17 @@ const SignIn = () => {
       password,
     });
 
-    const {
-      userData: currentUser,
-      status,
-      token,
-      teams,
-      fixtures,
-    } = result.data;
+    dispatch({ type: "SET_TOKEN", payload: result.data.token });
 
-    // const newData = await axios.get("http://localhost:6001/syncStore", {
-    //   headers: { token },
-    // });
-
-    if (status === 1) {
-      dispatch({
-        type: SET_CURRENT_USER,
-        payload: { currentUser, token, teams, fixtures },
+    if (result.data.status === 1) {
+      const newData = await axios.get("http://localhost:6001/syncStore", {
+        headers: { token: result.data.token },
       });
-      // dispatch({
-      //   type: UPDATE_STORE,
-      //   payload: newData.data,
-      // });
+
+      dispatch({
+        type: UPDATE_STORE,
+        payload: newData.data,
+      });
 
       navigate("/dashboard");
     } else {

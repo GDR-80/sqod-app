@@ -4,8 +4,8 @@ import UserType from "../components/UserType";
 
 const SignUp = () => {
   const screenMode = useSelector((state) => state.screenMode);
-  const users = useSelector((state) => state.users);
-  console.log(users);
+  // const users = useSelector((state) => state.users);
+  // console.log(users);
   return (
     <div className="container">
       {screenMode === 0 && <CreateUserForm />}
