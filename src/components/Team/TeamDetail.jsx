@@ -22,7 +22,7 @@ const TeamDetail = () => {
 
   const team = teams && teams.find((team) => team.id === Number(teamId));
   if (!team) {
-    return <Navigate replace to={"/dashboard"} />;
+    return <Navigate replace to={"/dashboard"} />; // This causing bug on logout
   }
 
   const childrenOnTeam = children.filter(

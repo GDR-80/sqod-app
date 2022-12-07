@@ -6,8 +6,6 @@ const FixtureList = () => {
   let { teamId } = useParams();
   const fixtures = useSelector((state) => state.fixtures);
   const currentUser = useSelector((state) => state.currentUser);
-  const manager = "manager";
-
   teamId = Number(teamId);
 
   const fixturesToShow = fixtures.filter(
@@ -26,7 +24,7 @@ const FixtureList = () => {
         }}
       >
         <h2>Fixtures</h2>
-        {currentUser.user_type === 0 && (
+        {currentUser.userType === 0 && (
           <Link to={`/dashboard/manager/create-fixture/${teamId}`}>
             <button
               style={{ marginBottom: "2rem" }}

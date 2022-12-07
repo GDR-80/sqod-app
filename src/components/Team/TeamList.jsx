@@ -26,6 +26,12 @@ const TeamList = ({ onApprove, childrenOnTeam, currentUser }) => {
                         {child.approved === 0 ? "Approve" : "Approved"}
                       </button>
                     )}
+
+                    {currentUser.userType === 1 && child.approved === 0 && (
+                      <button className="btn btn_info">
+                        Waiting to be approved
+                      </button>
+                    )}
                   </li>
                 );
               })

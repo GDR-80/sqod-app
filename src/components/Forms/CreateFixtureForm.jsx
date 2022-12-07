@@ -1,16 +1,22 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { UPDATE_STORE } from "../../redux/types";
 import { validate } from "../../validation";
-import { CREATE_FIXTURE } from "../../redux/types";
+
+import axios from "axios";
+// import { CREATE_FIXTURE } from "../../redux/types";
 
 const CreateFixtureForm = () => {
   const teams = useSelector((state) => state.teams);
-  const { teamId } = useParams();
+  const token = useSelector((state) => state.token);
+  let { teamId } = useParams();
   const [userInput, setUserInput] = useState({});
   const [errors, setErrors] = useState();
   const [redirect, setRedirect] = useState(false);
   const inputRef = useRef();
+  const navigate = useNavigate();
+  teamId = Number(teamId);
   const dispatch = useDispatch();
   useEffect(() => {
     inputRef.current.focus();
@@ -18,7 +24,11 @@ const CreateFixtureForm = () => {
 
   const currentTeam = teams.find((team) => team.id === Number(teamId));
 
-  console.log(currentTeam, "<<>>");
+  const dateTime = userInput.date + " " + userInput.meetTime;
+
+  console.log(userInput, "<<>>");
+
+  console.log(userInput.opposition, userInput.venue);
 
   let oppositionList = [];
   teams.forEach((team) => {
@@ -33,22 +43,51 @@ const CreateFixtureForm = () => {
     setErrors(result);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (
       Object.keys(userInput).length !== 0 &&
       Object.keys(errors).length === 0
     ) {
-      dispatch({
-        type: CREATE_FIXTURE,
-        payload: { fixture: userInput, teamId },
+      const result = await axios.post("http://localhost:6001/createFixture", {
+        userInput,
+        teamId,
       });
 
-      setRedirect(true);
+      if (result.data.status === 1) {
+        const newData = await axios.get("http://localhost:6001/syncStore", {
+          headers: { token },
+        });
+
+        dispatch({
+          type: UPDATE_STORE,
+          payload: newData.data,
+        });
+
+        navigate(-1);
+      }
     }
   };
-  if (redirect === true) {
-    return <Navigate replace to={`/team/${teamId}`} />;
-  }
+
+  // if (redirect === true) {
+  //   return <Navigate replace to={"/dashboard"} />;
+  // }
+
+  // const onSubmit = () => {
+  //   if (
+  //     Object.keys(userInput).length !== 0 &&
+  //     Object.keys(errors).length === 0
+  //   ) {
+  //     dispatch({
+  //       type: CREATE_FIXTURE,
+  //       payload: { fixture: userInput, teamId },
+  //     });
+
+  //     setRedirect(true);
+  //   }
+  // };
+  // if (redirect === true) {
+  //   return <Navigate replace to={`/team/${teamId}`} />;
+  // }
 
   return (
     <>

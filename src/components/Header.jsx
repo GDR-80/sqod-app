@@ -15,9 +15,12 @@ const Header = () => {
       headers: { token },
     });
 
+    console.log(results.data.status);
+
     if (results.data.status === 1) {
       navigate("/");
       dispatch({ type: LOG_OUT });
+      console.log("logging out");
     }
   };
 

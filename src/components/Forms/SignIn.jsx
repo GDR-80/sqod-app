@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { SET_CURRENT_USER, UPDATE_STORE } from "../../redux/types";
+import { UPDATE_STORE } from "../../redux/types";
 import axios from "axios";
 import Loader from "../UI/Loader";
 const SignIn = () => {

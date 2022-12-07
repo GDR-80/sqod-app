@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import BackgroundCard from "../UI/BackgroundCard";
 import Container from "../UI/Container";
 import FixtureInfo from "./FixtureInfo";
@@ -10,6 +10,7 @@ const FixtureDetail = () => {
   const { fixtureId } = useParams();
   const fixtures = useSelector((state) => state.fixtures);
   const fixture = fixtures.find((item) => item.id === Number(fixtureId));
+  const navigate = useNavigate();
 
   if (!fixture) {
     return <Navigate replace to={"/dashboard"} />;
@@ -31,8 +32,8 @@ const FixtureDetail = () => {
               id={fixture.id}
             />
 
-            <button className="btn btn_primary ml">
-              <Link to="/dashboard">Back</Link>
+            <button className="btn btn_primary ml" onClick={() => navigate(-1)}>
+              Back
             </button>
             <DeleteFixtureButton />
           </>

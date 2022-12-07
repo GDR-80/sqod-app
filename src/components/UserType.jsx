@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_STORE } from "../redux/types";
 import { useNavigate } from "react-router-dom";
 import BackgroundCard from "./UI/BackgroundCard";
+import { SET_TOKEN } from "../redux/types";
 import axios from "axios";
 
 const UserType = () => {
@@ -34,7 +35,7 @@ const UserType = () => {
     });
 
     console.log(result, "<<<<<<<<<<<");
-    dispatch({ type: "SET_TOKEN", payload: result.data.token });
+    dispatch({ type: SET_TOKEN, payload: result.data.token });
 
     if (result.data.status === 1) {
       const newData = await axios.get("http://localhost:6001/syncStore", {
