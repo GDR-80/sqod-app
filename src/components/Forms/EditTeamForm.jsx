@@ -41,8 +41,13 @@ const EditTeamForm = () => {
 
   // console.log(Object.keys(errors));
 
+  console.log(userInput);
+
   const onSubmit = async () => {
-    if (Object.keys(errors).length === 0) {
+    if (
+      Object.keys(userInput).length !== 0 &&
+      Object.keys(errors).length === 0
+    ) {
       const result = await axios.put("http://localhost:6001/editTeam", {
         userInput,
         currentUser: currentUser.id,

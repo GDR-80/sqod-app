@@ -4,7 +4,6 @@ import Backdrop from "../UI/Backdrop";
 
 const DeleteTeamButton = () => {
   const [modalContent, setModalContent] = useState();
-
   return (
     <>
       {modalContent && (

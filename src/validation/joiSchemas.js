@@ -18,7 +18,7 @@ export const createTeam = {
   name: Joi.string().required(),
   ageGroup: Joi.string().required(),
   line1: Joi.string().required(),
-  line2: Joi.string(),
+  line2: Joi.string().allow("", null),
   city: Joi.string().required(),
   postCode: Joi.string().required(),
 };

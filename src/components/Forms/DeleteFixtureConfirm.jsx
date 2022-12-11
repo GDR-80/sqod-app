@@ -1,16 +1,35 @@
 import React, { useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { DELETE_FIXTURE } from "../../redux/types";
+import { useDispatch, useSelector } from "react-redux";
+import { DELETE_FIXTURE, UPDATE_STORE } from "../../redux/types";
+import axios from "axios";
 
 const DeleteFixtureConfirm = ({ setModalContent }) => {
   const { fixtureId } = useParams();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.token);
   const [redirect, setRedirect] = useState(false);
 
   if (redirect) {
-    return <Navigate replace to={"/dashboard"} />;
+    return <Navigate replace to={`/dashboard`} />;
   }
+
+  const onDelete = async () => {
+    const results = await axios.delete("http://localhost:6001/deleteFixture", {
+      data: { fixtureId },
+      headers: { token },
+    });
+
+    const newData = await axios.get("http://localhost:6001/syncStore", {
+      headers: { token },
+    });
+
+    dispatch({
+      type: UPDATE_STORE,
+      payload: newData.data,
+    });
+    setRedirect(true);
+  };
 
   return (
     <>
@@ -28,14 +47,7 @@ const DeleteFixtureConfirm = ({ setModalContent }) => {
         >
           Cancel
         </button>
-        <button
-          className="btn btn_delete ml"
-          onClick={(e) => {
-            // setModalContent(undefined);
-            dispatch({ type: DELETE_FIXTURE, payload: fixtureId });
-            setRedirect(true);
-          }}
-        >
+        <button className="btn btn_delete ml" onClick={onDelete}>
           Confirm
         </button>
       </div>
