@@ -11,16 +11,17 @@ const Header = () => {
   const navigate = useNavigate();
 
   const onLogOut = async () => {
-    const results = await axios.delete("http://localhost:6001/logOut", {
-      headers: { token },
-    });
+    try {
+      const results = await axios.delete("http://localhost:6001/logOut", {
+        headers: { token },
+      });
 
-    console.log(results.data.status);
-
-    if (results.data.status === 1) {
-      navigate("/");
-      dispatch({ type: LOG_OUT });
-      console.log("logging out");
+      if (results.data.status === 1) {
+        navigate("/");
+        dispatch({ type: LOG_OUT });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

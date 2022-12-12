@@ -15,6 +15,7 @@ const EditTeamForm = () => {
   teamId = Number(teamId);
 
   const { city, postCode, line1, line2 } = team.venue.address;
+
   const [userInput, setUserInput] = useState({
     city,
     postCode,
@@ -39,30 +40,32 @@ const EditTeamForm = () => {
     setErrors(result);
   };
 
-  // console.log(Object.keys(errors));
-
-  console.log(userInput);
-
   const onSubmit = async () => {
     if (
       Object.keys(userInput).length !== 0 &&
       Object.keys(errors).length === 0
     ) {
-      const result = await axios.put("http://localhost:6001/editTeam", {
-        userInput,
-        currentUser: currentUser.id,
-        teamId,
-        addressId: team.addressId,
-      });
+      try {
+        const result = await axios.put("http://localhost:6001/editTeam", {
+          userInput,
+          currentUser: currentUser.id,
+          teamId,
+          addressId: team.addressId,
+        });
 
-      const newData = await axios.get("http://localhost:6001/syncStore", {
-        headers: { token },
-      });
+        if (result.data.status === 1) {
+          const newData = await axios.get("http://localhost:6001/syncStore", {
+            headers: { token },
+          });
 
-      dispatch({
-        type: UPDATE_STORE,
-        payload: newData.data,
-      });
+          dispatch({
+            type: UPDATE_STORE,
+            payload: newData.data,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { UPDATE_STORE } from "../../redux/types";
 import { validate } from "../../validation";
 
 import axios from "axios";
-// import { CREATE_FIXTURE } from "../../redux/types";
 
 const CreateFixtureForm = () => {
   const teams = useSelector((state) => state.teams);
@@ -22,19 +21,14 @@ const CreateFixtureForm = () => {
     inputRef.current.focus();
   }, []);
 
-  const currentTeam = teams.find((team) => team.id === Number(teamId));
-
-  const dateTime = userInput.date + " " + userInput.meetTime;
-
-  console.log(userInput, "<<>>");
-
-  console.log(userInput.opposition, userInput.venue);
+  const currentTeam = teams && teams.find((team) => team.id === Number(teamId));
 
   let oppositionList = [];
-  teams.forEach((team) => {
-    if (team.ageGroup === currentTeam.ageGroup && team.id !== currentTeam.id)
-      oppositionList.push(team);
-  });
+  teams &&
+    teams.forEach((team) => {
+      if (team.ageGroup === currentTeam.ageGroup && team.id !== currentTeam.id)
+        oppositionList.push(team);
+    });
 
   const onUserInput = (e) => {
     const _userInput = { ...userInput, [e.target.name]: e.target.value };
@@ -48,22 +42,26 @@ const CreateFixtureForm = () => {
       Object.keys(userInput).length !== 0 &&
       Object.keys(errors).length === 0
     ) {
-      const result = await axios.post("http://localhost:6001/createFixture", {
-        userInput,
-        teamId,
-      });
-
-      if (result.data.status === 1) {
-        const newData = await axios.get("http://localhost:6001/syncStore", {
-          headers: { token },
+      try {
+        const result = await axios.post("http://localhost:6001/createFixture", {
+          userInput,
+          teamId,
         });
 
-        dispatch({
-          type: UPDATE_STORE,
-          payload: newData.data,
-        });
+        if (result.data.status === 1) {
+          const newData = await axios.get("http://localhost:6001/syncStore", {
+            headers: { token },
+          });
 
-        navigate(-1);
+          dispatch({
+            type: UPDATE_STORE,
+            payload: newData.data,
+          });
+
+          navigate(-1);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
   };

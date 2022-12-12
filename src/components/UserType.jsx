@@ -2,12 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_STORE } from "../redux/types";
 import { useNavigate } from "react-router-dom";
 import BackgroundCard from "./UI/BackgroundCard";
-import { SET_TOKEN } from "../redux/types";
+import { SET_TOKEN, SET_SCREEN } from "../redux/types";
 import axios from "axios";
 
-const UserType = () => {
+const UserType = ({ toast }) => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
   const manager = "manager";
@@ -24,7 +23,8 @@ const UserType = () => {
     if (status === 1) {
       onLogin();
     } else {
-      navigate("/");
+      toast.error("Sorry that email address is already in use!");
+      dispatch({ type: SET_SCREEN, payload: 0 });
     }
   };
 
@@ -34,7 +34,6 @@ const UserType = () => {
       password: currentUser.password,
     });
 
-    console.log(result, "<<<<<<<<<<<");
     dispatch({ type: SET_TOKEN, payload: result.data.token });
 
     if (result.data.status === 1) {

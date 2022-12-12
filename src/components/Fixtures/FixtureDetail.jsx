@@ -9,13 +9,17 @@ import DeleteFixtureButton from "../Buttons/DeleteFixture";
 const FixtureDetail = () => {
   const { fixtureId } = useParams();
   const fixtures = useSelector((state) => state.fixtures);
-  const fixture = fixtures.find((item) => item.id === Number(fixtureId));
+  const currentUser = useSelector((state) => state.currentUser);
+  const fixture =
+    fixtures && fixtures.find((item) => item.id === Number(fixtureId));
   const navigate = useNavigate();
 
-  if (!fixture) {
-    return <Navigate replace to={"/dashboard"} />;
-  }
-  const { managers, homeTeamId, awayTeamId, meetTime, kickOffTime } = fixture;
+  // if (!fixture) {
+  //   return <Navigate replace to={"/dashboard"} />;
+  // }
+
+  const { managers, homeTeamId, awayTeamId, meetTime, kickOffTime } =
+    fixture ?? {};
 
   return (
     <Container>
@@ -35,7 +39,7 @@ const FixtureDetail = () => {
             <button className="btn btn_primary ml" onClick={() => navigate(-1)}>
               Back
             </button>
-            <DeleteFixtureButton />
+            {currentUser.userType === 0 && <DeleteFixtureButton />}
           </>
         )}
       </BackgroundCard>

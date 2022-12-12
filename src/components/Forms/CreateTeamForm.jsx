@@ -30,20 +30,30 @@ const CreateTeamForm = () => {
       Object.keys(userInput).length !== 0 &&
       Object.keys(errors).length === 0
     ) {
-      const result = await axios.post("http://localhost:6001/createTeam", {
-        userInput,
-        currentUser: currentUser.id,
-      });
+      try {
+        const result = await axios.post(
+          "http://localhost:6001/createTeam",
+          {
+            userInput,
+            currentUser: currentUser.id,
+          },
+          { headers: { token } }
+        );
 
-      const newData = await axios.get("http://localhost:6001/syncStore", {
-        headers: { token },
-      });
+        if (result.data.status === 1) {
+          const newData = await axios.get("http://localhost:6001/syncStore", {
+            headers: { token },
+          });
 
-      dispatch({
-        type: UPDATE_STORE,
-        payload: newData.data,
-      });
-      setRedirect(true);
+          dispatch({
+            type: UPDATE_STORE,
+            payload: newData.data,
+          });
+          setRedirect(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

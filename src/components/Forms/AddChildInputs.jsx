@@ -2,9 +2,10 @@ import { useEffect, useRef } from "react";
 
 const AddChildInputs = ({ index, errors, teams, userInput }) => {
   let teamAgesList = [];
-  teams.forEach((team) => {
-    teamAgesList.push(team.ageGroup);
-  });
+  teams &&
+    teams.forEach((team) => {
+      teamAgesList.push(team.ageGroup);
+    });
 
   // de-duplicate the array
   teamAgesList = [...new Set(teamAgesList)];

@@ -53,24 +53,26 @@ const AddChildForm = () => {
     });
 
     setErrors(errors);
-    console.log(errors);
     if (errors.length === 0) {
-      const result = await axios.post("http://localhost:6001/addChild", {
-        userInput,
-        currentUserId: currentUser.id,
-      });
+      try {
+        const result = await axios.post("http://localhost:6001/addChild", {
+          userInput,
+          currentUserId: currentUser.id,
+        });
+        if (result.data.status === 1) {
+          const newData = await axios.get("http://localhost:6001/syncStore", {
+            headers: { token },
+          });
 
-      console.log(result.data);
-
-      const newData = await axios.get("http://localhost:6001/syncStore", {
-        headers: { token },
-      });
-
-      dispatch({
-        type: UPDATE_STORE,
-        payload: newData.data,
-      });
-      setRedirect(true);
+          dispatch({
+            type: UPDATE_STORE,
+            payload: newData.data,
+          });
+          setRedirect(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
     // }
   };

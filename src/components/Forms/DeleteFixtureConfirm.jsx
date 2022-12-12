@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { DELETE_FIXTURE, UPDATE_STORE } from "../../redux/types";
+import { UPDATE_STORE } from "../../redux/types";
 import axios from "axios";
 
 const DeleteFixtureConfirm = ({ setModalContent }) => {
@@ -15,20 +15,27 @@ const DeleteFixtureConfirm = ({ setModalContent }) => {
   }
 
   const onDelete = async () => {
-    const results = await axios.delete("http://localhost:6001/deleteFixture", {
-      data: { fixtureId },
-      headers: { token },
-    });
+    try {
+      const results = await axios.delete(
+        "http://localhost:6001/deleteFixture",
+        {
+          headers: { token, fixtureId },
+        }
+      );
+      if (results.data.status === 1) {
+        const newData = await axios.get("http://localhost:6001/syncStore", {
+          headers: { token },
+        });
 
-    const newData = await axios.get("http://localhost:6001/syncStore", {
-      headers: { token },
-    });
-
-    dispatch({
-      type: UPDATE_STORE,
-      payload: newData.data,
-    });
-    setRedirect(true);
+        dispatch({
+          type: UPDATE_STORE,
+          payload: newData.data,
+        });
+        setRedirect(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

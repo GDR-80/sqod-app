@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteTeamButton from "../Buttons/DeleteTeamButton";
 import Container from "../UI/Container";
@@ -21,13 +21,12 @@ const TeamDetail = () => {
   const dispatch = useDispatch();
 
   const team = teams && teams.find((team) => team.id === Number(teamId));
-  if (!team) {
-    return <Navigate replace to={"/dashboard"} />; // This causing bug on logout
-  }
+  // if (!team) {
+  //   return <Navigate replace to={"/dashboard"} />; // This causing bug on logout
+  // }
 
-  const childrenOnTeam = children.filter(
-    (child) => child.teamId === Number(teamId)
-  );
+  const childrenOnTeam =
+    children && children.filter((child) => child.teamId === Number(teamId));
 
   if (!childrenOnTeam) {
     return <Loader />;
@@ -36,19 +35,25 @@ const TeamDetail = () => {
   const onApprove = async (id, isApproved) => {
     isApproved === 0 ? (isApproved = 1) : (isApproved = 0);
 
-    const results = await axios.post("http://localhost:6001/setApproved", {
-      id,
-      isApproved,
-    });
+    try {
+      const results = await axios.post("http://localhost:6001/setApproved", {
+        id,
+        isApproved,
+      });
 
-    const newData = await axios.get("http://localhost:6001/syncStore", {
-      headers: { token },
-    });
+      if (results.data.status === 1) {
+        const newData = await axios.get("http://localhost:6001/syncStore", {
+          headers: { token },
+        });
 
-    dispatch({
-      type: UPDATE_STORE,
-      payload: newData.data,
-    });
+        dispatch({
+          type: UPDATE_STORE,
+          payload: newData.data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

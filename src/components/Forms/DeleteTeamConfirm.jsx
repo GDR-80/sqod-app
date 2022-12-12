@@ -15,20 +15,25 @@ const DeleteTeamConfirm = ({ setModalContent }) => {
   }
 
   const onDelete = async () => {
-    const results = await axios.delete("http://localhost:6001/deleteTeam", {
-      data: { teamId },
-      headers: { token },
-    });
+    try {
+      const results = await axios.delete("http://localhost:6001/deleteTeam", {
+        data: { teamId },
+        headers: { token },
+      });
+      if (results.data.status === 1) {
+        const newData = await axios.get("http://localhost:6001/syncStore", {
+          headers: { token },
+        });
 
-    const newData = await axios.get("http://localhost:6001/syncStore", {
-      headers: { token },
-    });
-
-    dispatch({
-      type: UPDATE_STORE,
-      payload: newData.data,
-    });
-    setRedirect(true);
+        dispatch({
+          type: UPDATE_STORE,
+          payload: newData.data,
+        });
+        setRedirect(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
