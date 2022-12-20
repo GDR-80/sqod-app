@@ -36,10 +36,14 @@ const TeamDetail = () => {
     isApproved === 0 ? (isApproved = 1) : (isApproved = 0);
 
     try {
-      const results = await axios.post("http://localhost:6001/setApproved", {
-        id,
-        isApproved,
-      });
+      const results = await axios.post(
+        "http://localhost:6001/setApproved",
+        {
+          id,
+          isApproved,
+        },
+        { headers: { token } }
+      );
 
       if (results.data.status === 1) {
         const newData = await axios.get("http://localhost:6001/syncStore", {

@@ -43,10 +43,14 @@ const CreateFixtureForm = () => {
       Object.keys(errors).length === 0
     ) {
       try {
-        const result = await axios.post("http://localhost:6001/createFixture", {
-          userInput,
-          teamId,
-        });
+        const result = await axios.post(
+          "http://localhost:6001/createFixture",
+          {
+            userInput,
+            teamId,
+          },
+          { headers: { token } }
+        );
 
         if (result.data.status === 1) {
           const newData = await axios.get("http://localhost:6001/syncStore", {

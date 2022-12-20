@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_STORE } from "../../redux/types";
 import axios from "axios";
@@ -8,18 +8,15 @@ const DeleteFixtureConfirm = ({ setModalContent }) => {
   const { fixtureId } = useParams();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
-  const [redirect, setRedirect] = useState(false);
 
-  if (redirect) {
-    return <Navigate replace to={`/dashboard`} />;
-  }
+  const navigate = useNavigate();
 
   const onDelete = async () => {
     try {
       const results = await axios.delete(
         "http://localhost:6001/deleteFixture",
         {
-          headers: { token, fixtureId },
+          headers: { token, fixture_id: fixtureId },
         }
       );
       if (results.data.status === 1) {
@@ -31,7 +28,7 @@ const DeleteFixtureConfirm = ({ setModalContent }) => {
           type: UPDATE_STORE,
           payload: newData.data,
         });
-        setRedirect(true);
+        navigate(-1);
       }
     } catch (error) {
       console.log(error);

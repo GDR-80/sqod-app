@@ -55,10 +55,14 @@ const AddChildForm = () => {
     setErrors(errors);
     if (errors.length === 0) {
       try {
-        const result = await axios.post("http://localhost:6001/addChild", {
-          userInput,
-          currentUserId: currentUser.id,
-        });
+        const result = await axios.post(
+          "http://localhost:6001/addChild",
+          {
+            userInput,
+            currentUserId: currentUser.id,
+          },
+          { headers: { token } }
+        );
         if (result.data.status === 1) {
           const newData = await axios.get("http://localhost:6001/syncStore", {
             headers: { token },

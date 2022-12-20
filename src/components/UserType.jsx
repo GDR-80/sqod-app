@@ -9,14 +9,19 @@ const UserType = ({ toast }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
+  const token = useSelector((state) => state.token);
   const manager = "manager";
   const parent = "parent";
 
   const onSubmit = async (user_type) => {
-    const results = await axios.post("http://localhost:6001/createUser", {
-      currentUser,
-      user_type,
-    });
+    const results = await axios.post(
+      "http://localhost:6001/createUser",
+      {
+        currentUser,
+        user_type,
+      },
+      { headers: { token } }
+    );
 
     const { status } = results.data;
 

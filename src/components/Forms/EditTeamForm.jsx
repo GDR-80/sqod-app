@@ -46,12 +46,16 @@ const EditTeamForm = () => {
       Object.keys(errors).length === 0
     ) {
       try {
-        const result = await axios.put("http://localhost:6001/editTeam", {
-          userInput,
-          currentUser: currentUser.id,
-          teamId,
-          addressId: team.addressId,
-        });
+        const result = await axios.put(
+          "http://localhost:6001/editTeam",
+          {
+            userInput,
+            currentUser: currentUser.id,
+            teamId,
+            addressId: team.addressId,
+          },
+          { headers: { token } }
+        );
 
         if (result.data.status === 1) {
           const newData = await axios.get("http://localhost:6001/syncStore", {

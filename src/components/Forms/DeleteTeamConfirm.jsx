@@ -5,10 +5,12 @@ import { UPDATE_STORE } from "../../redux/types";
 import axios from "axios";
 
 const DeleteTeamConfirm = ({ setModalContent }) => {
-  const { teamId } = useParams();
+  let { teamId } = useParams();
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
   const token = useSelector((state) => state.token);
+
+  teamId = Number(teamId);
 
   if (redirect) {
     return <Navigate replace to={"/dashboard"} />;
@@ -17,8 +19,7 @@ const DeleteTeamConfirm = ({ setModalContent }) => {
   const onDelete = async () => {
     try {
       const results = await axios.delete("http://localhost:6001/deleteTeam", {
-        data: { teamId },
-        headers: { token },
+        headers: { token, team_id: teamId },
       });
       if (results.data.status === 1) {
         const newData = await axios.get("http://localhost:6001/syncStore", {
