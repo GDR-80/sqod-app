@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UPDATE_STORE, SET_TOKEN } from "../../redux/types";
 import axios from "axios";
-import Loader from "../UI/Loader";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState();

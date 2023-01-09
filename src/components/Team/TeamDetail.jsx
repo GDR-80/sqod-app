@@ -1,4 +1,4 @@
-import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteTeamButton from "../Buttons/DeleteTeamButton";
 import Container from "../UI/Container";
@@ -21,9 +21,6 @@ const TeamDetail = () => {
   const dispatch = useDispatch();
 
   const team = teams && teams.find((team) => team.id === Number(teamId));
-  // if (!team) {
-  //   return <Navigate replace to={"/dashboard"} />; // This causing bug on logout
-  // }
 
   const childrenOnTeam =
     children && children.filter((child) => child.teamId === Number(teamId));

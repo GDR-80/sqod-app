@@ -12,7 +12,6 @@ const CreateFixtureForm = () => {
   let { teamId } = useParams();
   const [userInput, setUserInput] = useState({});
   const [errors, setErrors] = useState();
-  const [redirect, setRedirect] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
   teamId = Number(teamId);
@@ -69,27 +68,6 @@ const CreateFixtureForm = () => {
       }
     }
   };
-
-  // if (redirect === true) {
-  //   return <Navigate replace to={"/dashboard"} />;
-  // }
-
-  // const onSubmit = () => {
-  //   if (
-  //     Object.keys(userInput).length !== 0 &&
-  //     Object.keys(errors).length === 0
-  //   ) {
-  //     dispatch({
-  //       type: CREATE_FIXTURE,
-  //       payload: { fixture: userInput, teamId },
-  //     });
-
-  //     setRedirect(true);
-  //   }
-  // };
-  // if (redirect === true) {
-  //   return <Navigate replace to={`/team/${teamId}`} />;
-  // }
 
   return (
     <>

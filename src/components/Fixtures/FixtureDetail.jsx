@@ -1,6 +1,6 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BackgroundCard from "../UI/BackgroundCard";
 import Container from "../UI/Container";
 import FixtureInfo from "./FixtureInfo";
@@ -13,10 +13,6 @@ const FixtureDetail = () => {
   const fixture =
     fixtures && fixtures.find((item) => item.id === Number(fixtureId));
   const navigate = useNavigate();
-
-  // if (!fixture) {
-  //   return <Navigate replace to={"/dashboard"} />;
-  // }
 
   const { managers, homeTeamId, awayTeamId, meetTime, kickOffTime } =
     fixture ?? {};

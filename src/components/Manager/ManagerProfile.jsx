@@ -47,10 +47,10 @@ const ManagerProfile = () => {
           </ul>
 
           {/* Buttons aren't wired up */}
-          <div className="controls_btn">
+          {/* <div className="controls_btn">
             <button className="btn btn_edit">Edit Profile</button>
             <button className="btn btn_delete ml">Delete Profile</button>
-          </div>
+          </div> */}
         </div>
         <div className="my_teams">
           <h2>My Teams</h2>
