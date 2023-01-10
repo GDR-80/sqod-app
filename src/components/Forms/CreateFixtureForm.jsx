@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { UPDATE_STORE } from "../../redux/types";
 import { validate } from "../../validation";
-
+import { url } from "../../config";
 import axios from "axios";
 
 const CreateFixtureForm = () => {
@@ -43,7 +43,7 @@ const CreateFixtureForm = () => {
     ) {
       try {
         const result = await axios.post(
-          "http://localhost:6001/createFixture",
+          `${url}/createFixture`,
           {
             userInput,
             teamId,
@@ -52,7 +52,7 @@ const CreateFixtureForm = () => {
         );
 
         if (result.data.status === 1) {
-          const newData = await axios.get("http://localhost:6001/syncStore", {
+          const newData = await axios.get(`${url}/syncStore`, {
             headers: { token },
           });
 

@@ -4,6 +4,7 @@ import { validate } from "../../validation";
 import { UPDATE_STORE } from "../../redux/types";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { url } from "../../config";
 
 const CreateTeamForm = () => {
   const [userInput, setUserInput] = useState({});
@@ -32,7 +33,7 @@ const CreateTeamForm = () => {
     ) {
       try {
         const result = await axios.post(
-          "http://localhost:6001/createTeam",
+          `${url}createTeam`,
           {
             userInput,
             currentUser: currentUser.id,
@@ -41,7 +42,7 @@ const CreateTeamForm = () => {
         );
 
         if (result.data.status === 1) {
-          const newData = await axios.get("http://localhost:6001/syncStore", {
+          const newData = await axios.get(`${url}/syncStore`, {
             headers: { token },
           });
 

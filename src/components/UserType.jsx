@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import BackgroundCard from "./UI/BackgroundCard";
 import { SET_TOKEN, SET_SCREEN } from "../redux/types";
 import axios from "axios";
+import { url } from "../config";
 
 const UserType = ({ toast }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const UserType = ({ toast }) => {
 
   const onSubmit = async (user_type) => {
     const results = await axios.post(
-      "http://localhost:6001/createUser",
+      `${url}/createUser`,
       {
         currentUser,
         user_type,
@@ -34,7 +35,7 @@ const UserType = ({ toast }) => {
   };
 
   const onLogin = async () => {
-    const result = await axios.post("http://localhost:6001/login", {
+    const result = await axios.post(`${url}/login`, {
       email: currentUser.email,
       password: currentUser.password,
     });
@@ -42,7 +43,7 @@ const UserType = ({ toast }) => {
     dispatch({ type: SET_TOKEN, payload: result.data.token });
 
     if (result.data.status === 1) {
-      const newData = await axios.get("http://localhost:6001/syncStore", {
+      const newData = await axios.get(`${url}/syncStore`, {
         headers: { token: result.data.token },
       });
 

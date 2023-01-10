@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LOG_OUT } from "../redux/types";
 import axios from "axios";
+import { url } from "../config";
 
 const Header = () => {
   const token = useSelector((state) => state.token);
@@ -12,7 +13,7 @@ const Header = () => {
 
   const onLogOut = async () => {
     try {
-      const results = await axios.delete("http://localhost:6001/logOut", {
+      const results = await axios.delete(`${url}/logOut`, {
         headers: { token },
       });
 
@@ -29,9 +30,9 @@ const Header = () => {
     <>
       {location.pathname !== "/" && location.pathname !== "/signup" && (
         <header>
-          <button className="btn btn_edit" onClick={() => localStorage.clear()}>
+          {/* <button className="btn btn_edit" onClick={() => localStorage.clear()}>
             Clear localStorage
-          </button>
+          </button> */}
           <div className="container">
             <h1>
               Welcome to <span className="welcome_msg">SQOD,</span> {user.name}

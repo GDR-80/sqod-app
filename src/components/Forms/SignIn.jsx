@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UPDATE_STORE, SET_TOKEN } from "../../redux/types";
 import axios from "axios";
+import { url } from "../../config";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState();
@@ -16,7 +17,7 @@ const SignIn = () => {
 
   const onLogin = async () => {
     try {
-      const result = await axios.post("http://localhost:6001/login", {
+      const result = await axios.post(`${url}/login`, {
         email,
         password,
       });
@@ -24,7 +25,7 @@ const SignIn = () => {
       dispatch({ type: SET_TOKEN, payload: result.data.token });
 
       if (result.data.status === 1) {
-        const newData = await axios.get("http://localhost:6001/syncStore", {
+        const newData = await axios.get(`${url}/syncStore`, {
           headers: { token: result.data.token },
         });
 

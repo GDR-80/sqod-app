@@ -4,6 +4,7 @@ import { validate } from "../../validation";
 import { UPDATE_STORE } from "../../redux/types";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { url } from "../../config";
 
 const EditTeamForm = () => {
   let { teamId } = useParams();
@@ -47,7 +48,7 @@ const EditTeamForm = () => {
     ) {
       try {
         const result = await axios.put(
-          "http://localhost:6001/editTeam",
+          `${url}/editTeam`,
           {
             userInput,
             currentUser: currentUser.id,
@@ -58,7 +59,7 @@ const EditTeamForm = () => {
         );
 
         if (result.data.status === 1) {
-          const newData = await axios.get("http://localhost:6001/syncStore", {
+          const newData = await axios.get(`${url}/syncStore`, {
             headers: { token },
           });
 

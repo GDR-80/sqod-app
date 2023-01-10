@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_STORE } from "../../redux/types";
 import axios from "axios";
+import { url } from "../../config";
 
 const DeleteFixtureConfirm = ({ setModalContent }) => {
   const { fixtureId } = useParams();
@@ -13,14 +14,11 @@ const DeleteFixtureConfirm = ({ setModalContent }) => {
 
   const onDelete = async () => {
     try {
-      const results = await axios.delete(
-        "http://localhost:6001/deleteFixture",
-        {
-          headers: { token, fixture_id: fixtureId },
-        }
-      );
+      const results = await axios.delete(`${url}/deleteFixture`, {
+        headers: { token, fixture_id: fixtureId },
+      });
       if (results.data.status === 1) {
-        const newData = await axios.get("http://localhost:6001/syncStore", {
+        const newData = await axios.get(`${url}/syncStore`, {
           headers: { token },
         });
 

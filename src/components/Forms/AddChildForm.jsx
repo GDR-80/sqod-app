@@ -6,6 +6,7 @@ import { UPDATE_STORE } from "../../redux/types";
 import AddChildInputs from "./AddChildInputs";
 import { Navigate } from "react-router-dom";
 import axios from "axios";
+import { url } from "../../config";
 
 const AddChildForm = () => {
   const teams = useSelector((state) => state.teams);
@@ -56,7 +57,7 @@ const AddChildForm = () => {
     if (errors.length === 0) {
       try {
         const result = await axios.post(
-          "http://localhost:6001/addChild",
+          `${url}/addChild`,
           {
             userInput,
             currentUserId: currentUser.id,
@@ -64,7 +65,7 @@ const AddChildForm = () => {
           { headers: { token } }
         );
         if (result.data.status === 1) {
-          const newData = await axios.get("http://localhost:6001/syncStore", {
+          const newData = await axios.get(`${url}/syncStore`, {
             headers: { token },
           });
 

@@ -3,6 +3,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UPDATE_STORE } from "../../redux/types";
 import axios from "axios";
+import { url } from "../../config";
 
 const DeleteTeamConfirm = ({ setModalContent }) => {
   let { teamId } = useParams();
@@ -18,11 +19,11 @@ const DeleteTeamConfirm = ({ setModalContent }) => {
 
   const onDelete = async () => {
     try {
-      const results = await axios.delete("http://localhost:6001/deleteTeam", {
+      const results = await axios.delete(`${url}/deleteTeam`, {
         headers: { token, team_id: teamId },
       });
       if (results.data.status === 1) {
-        const newData = await axios.get("http://localhost:6001/syncStore", {
+        const newData = await axios.get(`${url}/syncStore`, {
           headers: { token },
         });
 

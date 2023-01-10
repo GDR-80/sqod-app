@@ -8,6 +8,7 @@ import TeamList from "./TeamList";
 import BackgroundCard from "../UI/BackgroundCard";
 import FixtureList from "../Fixtures/FixtureList";
 import axios from "axios";
+import { url } from "../../config";
 
 const TeamDetail = () => {
   const { teamId } = useParams();
@@ -34,7 +35,7 @@ const TeamDetail = () => {
 
     try {
       const results = await axios.post(
-        "http://localhost:6001/setApproved",
+        `${url}/setApproved`,
         {
           id,
           isApproved,
@@ -43,7 +44,7 @@ const TeamDetail = () => {
       );
 
       if (results.data.status === 1) {
-        const newData = await axios.get("http://localhost:6001/syncStore", {
+        const newData = await axios.get(`${url}/syncStore`, {
           headers: { token },
         });
 
